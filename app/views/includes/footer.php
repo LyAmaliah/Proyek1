@@ -40,7 +40,7 @@
                 </ul>
             </div>
             <div class="col-md-4">
-                <h6 class="fw-semibold mb-3">Coba</h6>
+                <h6 class="fw-semibold mb-3">Tips Hari Ini</h6>
                 <div class="tip-box">
                     <i class="bi bi-lightbulb-fill text-accent me-2"></i>
                     Minum minimal 8 gelas air putih setiap hari dan sisipkan 30 menit aktivitas
