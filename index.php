@@ -2,7 +2,7 @@
 /**
  * HealthyHabit — Front Controller (titik masuk aplikasi)
  * Sistem Pembentukan Kebiasaan Hidup Sehat Berbasis Web Native
- *
+ * Assalamualaikum dilla risma 
  * Semua request (kecuali file statis) diarahkan ke file ini
  * melalui modul mod_rewrite Apache (.htaccess).  Bismillah
  */
