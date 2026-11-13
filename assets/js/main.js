@@ -56,14 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     /* ---------- 5. KALKULATOR GIZI (FR-11) ----------
-     * Menghitung total zat gizi berdasarkan gramasi input pengguna
-     * dari nilai dasar per 100 gram.
+     * Menghitung total zat gizi berdasarkan gramasi/volume input pengguna
+     * dari nilai dasar per 100 gram atau 100 ml.
      * Elemen: #giziMakanan (select), #giziGram (number),
      *         #giziHasil (container), #giziNama, #giziKalori, dst.
      */
     var selectMakanan = document.getElementById('giziMakanan');
-    var inputGram = document.getElementById('giziGram');
-    var boxHasil = document.getElementById('giziHasil');
+    var inputGram     = document.getElementById('giziGram');
+    var boxHasil      = document.getElementById('giziHasil');
 
     function formatAngka(n) {
         return new Intl.NumberFormat('id-ID', { maximumFractionDigits: 1 }).format(n);
@@ -80,19 +80,33 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        var faktor = gram / 100; // nilai tabel = per 100 gram
-        var kalori = parseFloat(opsi.dataset.kalori || 0) * faktor;
-        var karbo = parseFloat(opsi.dataset.karbohidrat || 0) * faktor;
+        // Cek apakah item yang dipilih adalah Minuman atau Makanan
+        var isMinuman = opsi.textContent.includes('(Minuman)');
+        var satuan    = isMinuman ? 'ml' : 'gram';
+
+        // 1. Otomatis ubah tulisan satuan di samping kotak input angka
+        var labelSatuan = inputGram.nextElementSibling;
+        if (labelSatuan) {
+            labelSatuan.textContent = satuan;
+        }
+
+        // Hitung nutrisi: nilai dasar per 100 g atau per 100 ml
+        var faktor  = gram / 100;
+        var kalori  = parseFloat(opsi.dataset.kalori || 0) * faktor;
+        var karbo   = parseFloat(opsi.dataset.karbohidrat || 0) * faktor;
         var protein = parseFloat(opsi.dataset.protein || 0) * faktor;
-        var lemak = parseFloat(opsi.dataset.lemak || 0) * faktor;
+        var lemak   = parseFloat(opsi.dataset.lemak || 0) * faktor;
 
         var set = function (id, val) {
             var el = document.getElementById(id);
             if (el) el.textContent = formatAngka(val);
         };
         
+        // 2. Tampilkan nama item beserta satuan yang sesuai (ml atau gram)
         var elNama = document.getElementById('giziHasilNama');
-        if (elNama) elNama.textContent = opsi.textContent.trim() + ' — ' + gram + ' gram';
+        if (elNama) {
+            elNama.textContent = opsi.textContent.trim() + ' — ' + gram + ' ' + satuan;
+        }
         
         set('giziKalori', kalori);
         set('giziKarbohidrat', karbo);
@@ -103,8 +117,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (selectMakanan) selectMakanan.addEventListener('change', hitungGizi);
-    if (inputGram) inputGram.addEventListener('input', hitungGizi);
-
+    if (inputGram)     inputGram.addEventListener('input', hitungGizi);
+    
     /* ---------- 6. Pratinjau langsung BMI ---------- */
     var bmiBerat = document.getElementById('bmiBerat');
     var bmiTinggi = document.getElementById('bmiTinggi');
