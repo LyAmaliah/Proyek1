@@ -39,3 +39,7 @@ define('UPLOAD_ALLOWED', ['jpg', 'jpeg', 'png', 'webp']);
 
 date_default_timezone_set('Asia/Jakarta');
 mb_internal_encoding('UTF-8');
+
+/* ---------------- FatSecret Platform API (OAuth 2.0) ---------------- */
+define('FATSECRET_CLIENT_ID', 'df129d79fe8f435ab87ebcd8ad73be5f');
+define('FATSECRET_CLIENT_SECRET', '3c30341931f347c5822f80ec92d6f034');

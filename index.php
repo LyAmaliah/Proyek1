@@ -20,6 +20,7 @@ spl_autoload_register(function (string $class): void {
     $candidates = [
         APP_PATH . '/core/' . $class . '.php',
         APP_PATH . '/models/' . $class . '.php',
+        APP_PATH . '/services/' . $class . '.php',
         APP_PATH . '/controllers/' . $class . '.php',
         APP_PATH . '/controllers/admin/' . $class . '.php',
     ];

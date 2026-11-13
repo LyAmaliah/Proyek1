@@ -90,7 +90,10 @@ document.addEventListener('DOMContentLoaded', function () {
             var el = document.getElementById(id);
             if (el) el.textContent = formatAngka(val);
         };
-        set('giziHasilNama', opsi.textContent.trim() + ' — ' + gram + ' gram');
+        
+        var elNama = document.getElementById('giziHasilNama');
+        if (elNama) elNama.textContent = opsi.textContent.trim() + ' — ' + gram + ' gram';
+        
         set('giziKalori', kalori);
         set('giziKarbohidrat', karbo);
         set('giziProtein', protein);
