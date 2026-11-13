@@ -12,7 +12,7 @@
         <div class="row g-4 align-items-start">
             <div class="col-md-4">
                 <div class="d-flex align-items-center gap-2 mb-2">
-                    <span class="brand-icon"><i class="bi bi-heart-pulse-fill"></i></span>
+                    <img src="<?= BASE_URL ?>/uploads/logo/logo_healthyhabit.png" alt="Logo HealthyHabit" width="40" height="40" class="d-inline-block align-text-top">
                     <span class="fw-bold fs-5">Healthy<span class="text-accent">Habit</span></span>
                 </div>
                 <p class="text-muted small mb-2"><?= e(APP_TAGLINE) ?></p>
