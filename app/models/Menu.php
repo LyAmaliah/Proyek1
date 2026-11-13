@@ -10,10 +10,10 @@ class Menu extends Model
     {
         $st = static::db()->prepare(
             'SELECT m.*, k.nama_kategori
-             FROM menu m
-             LEFT JOIN menu_categories k ON k.id_kategori_menu = m.id_kategori_menu
-             WHERE m.id_tempat = ?
-             ORDER BY m.nama_menu ASC'
+                FROM menu m
+                LEFT JOIN menu_categories k ON k.id_kategori_menu = m.id_kategori_menu
+                WHERE m.id_tempat = ?
+                ORDER BY m.nama_menu ASC'
         );
         $st->execute([$idTempat]);
         return $st->fetchAll();
