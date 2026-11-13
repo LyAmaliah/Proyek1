@@ -1,3 +1,4 @@
+
 # HealthyHabit — Sistem Pembentukan Kebiasaan Hidup Sehat Berbasis Web Native
 
 Aplikasi web **PHP Native + MySQL** bergaya **MVC sederhana** untuk membentuk kebiasaan hidup
@@ -8,7 +9,7 @@ kuliner sehat (studi kasus **RealJuice Healthy Café**) dengan ulasan & rating.
 
 ## 1. Stack Teknologi
 
-| Komponen  | Keterangan                                            |
+| Komponen  | Keterangan                                            |s
 |-----------|--------------------------------------------------------|
 | Bahasa    | PHP Native (diuji pada PHP 8.2)                        |
 | Database  | MySQL / MariaDB (XAMPP, phpMyAdmin)                    |
@@ -156,3 +157,7 @@ registrasi + BMI awal otomatis, ulasan & rating, snapshot laporan, serta aset de
 ```bash
 php -l app/controllers/UserController.php   # cek sintaks satu file
 ```
+
+# Proyek1
+Proyek 1 HealthyHabit
+>>>>>>> b4a86e7c580f6b178065add69d011097f201c217
