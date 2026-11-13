@@ -3,7 +3,7 @@
  * HealthyHabit — Front Controller (titik masuk aplikasi)
  * Sistem Pembentukan Kebiasaan Hidup Sehat Berbasis Web Native
  * Semua request (kecuali file statis) diarahkan ke file ini
- * melalui modul mod_rewrite Apache (.htaccess).
+ * melalui modul mod_rewrite Apache (.htaccess). cekkk
  */
 
 if (session_status() === PHP_SESSION_NONE) {
