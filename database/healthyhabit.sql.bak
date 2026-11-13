@@ -1,0 +1,365 @@
+-- =====================================================================
+--  HealthyHabit — Skema Database MySQL
+--  Sistem Pembentukan Kebiasaan Hidup Sehat Berbasis Web Native
+--
+--  Cara impor:
+--   1. Jalankan Apache & MySQL dari XAMPP Control Panel
+--   2. Buka http://localhost/phpmyadmin
+--   3. Menu "Import" → pilih file ini → Go
+--      (script sudah membuat database `healthyhabit` secara otomatis)
+--
+--  Akun bawaan:
+--   • Admin : username `admin`  / password `admin123`
+--   • User  : username `andi_sehat` / password `user123`
+--             username `sari_dewi`  / password `user123`
+-- =====================================================================
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+07:00";
+SET NAMES utf8mb4;
+
+-- Izinkan import ulang (reset) meski tabel sudah ada & berelasi
+SET FOREIGN_KEY_CHECKS = 0;
+
+CREATE DATABASE IF NOT EXISTS `healthyhabit`
+    DEFAULT CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE `healthyhabit`;
+
+-- =====================================================================
+-- 1. TABEL: admin
+-- =====================================================================
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+    `id_admin`  INT(11)      NOT NULL AUTO_INCREMENT,
+    `username`  VARCHAR(50)  NOT NULL,
+    `password`  VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id_admin`),
+    UNIQUE KEY `uq_admin_username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `admin` (`id_admin`, `username`, `password`) VALUES
+(1, 'admin', '$2y$10$eU3P1ieECi3zYzD7G9KVFOMt9GCZjrSqnxZp043c5DOwXJhIr4FYi'); -- admin123
+
+-- =====================================================================
+-- 2. TABEL: kategori_artikel  (pendukung relasi id_kategori_artikel)
+-- =====================================================================
+DROP TABLE IF EXISTS `kategori_artikel`;
+CREATE TABLE `kategori_artikel` (
+    `id_kategori_artikel` INT(11)     NOT NULL AUTO_INCREMENT,
+    `nama_kategori`       VARCHAR(60) NOT NULL,
+    PRIMARY KEY (`id_kategori_artikel`),
+    UNIQUE KEY `uq_kategori_nama` (`nama_kategori`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `kategori_artikel` (`id_kategori_artikel`, `nama_kategori`) VALUES
+(1, 'Nutrisi'),
+(2, 'Olahraga'),
+(3, 'Kesehatan Mental'),
+(4, 'Tips Harian'),
+(5, 'Diet Sehat');
+
+-- =====================================================================
+-- 3. TABEL: pengguna
+-- =====================================================================
+DROP TABLE IF EXISTS `pengguna`;
+CREATE TABLE `pengguna` (
+    `id_pengguna`   INT(11)      NOT NULL AUTO_INCREMENT,
+    `username`      VARCHAR(50)  NOT NULL,
+    `password`      VARCHAR(255) NOT NULL,
+    `nama_lengkap`  VARCHAR(100) NOT NULL,
+    `berat_badan`   DECIMAL(5,2) NOT NULL DEFAULT 0.00,
+    `tinggi_badan`  DECIMAL(5,2) NOT NULL DEFAULT 0.00,
+    `jenis_kelamin` ENUM('L','P') NOT NULL DEFAULT 'L',
+    `umur`          INT(11)      NOT NULL DEFAULT 0,
+    `created_at`    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id_pengguna`),
+    UNIQUE KEY `uq_pengguna_username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `pengguna`
+    (`id_pengguna`, `username`, `password`, `nama_lengkap`, `berat_badan`, `tinggi_badan`, `jenis_kelamin`, `umur`, `created_at`) VALUES
+(1, 'andi_sehat', '$2y$10$HdlM0uEE6ZXs1Aqk0yuZTO4id4xz2unxPUd90TuA/1YS/48.Y2x/W', 'Andi Pratama',  62.50, 170.00, 'L', 24, '2026-01-15 09:20:00'),
+(2, 'sari_dewi',  '$2y$10$HdlM0uEE6ZXs1Aqk0yuZTO4id4xz2unxPUd90TuA/1YS/48.Y2x/W', 'Sari Dewi',     55.00, 160.00, 'P', 27, '2026-02-02 14:05:00');
+
+-- =====================================================================
+-- 4. TABEL: artikel_kesehatan
+-- =====================================================================
+DROP TABLE IF EXISTS `artikel_kesehatan`;
+CREATE TABLE `artikel_kesehatan` (
+    `id_artikel`          INT(11)      NOT NULL AUTO_INCREMENT,
+    `id_kategori_artikel` INT(11)      DEFAULT NULL,
+    `id_admin`            INT(11)      DEFAULT NULL,
+    `judul_artikel`       VARCHAR(180) NOT NULL,
+    `isi_artikel`         TEXT         NOT NULL,
+    `foto_artikel`        VARCHAR(255) DEFAULT NULL,
+    `tanggal_terbit`      DATE         NOT NULL,
+    PRIMARY KEY (`id_artikel`),
+    KEY `fk_artikel_kategori` (`id_kategori_artikel`),
+    KEY `fk_artikel_admin` (`id_admin`),
+    CONSTRAINT `fk_artikel_kategori` FOREIGN KEY (`id_kategori_artikel`)
+        REFERENCES `kategori_artikel` (`id_kategori_artikel`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_artikel_admin` FOREIGN KEY (`id_admin`)
+        REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `artikel_kesehatan`
+    (`id_artikel`, `id_kategori_artikel`, `id_admin`, `judul_artikel`, `isi_artikel`, `foto_artikel`, `tanggal_terbit`) VALUES
+(1, 1, 1, 'Panduan Gizi Seimbang: Isi Piringku untuk Keluarga Sehat',
+ 'Gizi seimbang bukan berarti mahal. Konsep "Isi Piringku" dari Kementerian Kesehatan membagi satu piring makan menjadi 50% sayur dan buah, serta 50% makanan pokok dan lauk-pauk.\n\nPastikan setengah piring berisi sayur dan buah dengan warna beragam. Semakin beragam warna, semakin lengkap mikronutrien yang masuk ke tubuh Anda.\n\nLengkapi pula dengan aktivitas fisik minimal 30 menit sehari, minum air putih 8 gelas, dan cuci tangan sebelum makan. Kebiasaan kecil yang konsisten akan memberi hasil besar bagi kesehatan jangka panjang.',
+ NULL, '2026-03-01'),
+(2, 2, 1, '5 Olahraga Ringan yang Bisa Dilakukan di Rumah',
+ 'Tidak semua olahraga membutuhkan gym. Berikut lima aktivitas yang bisa dilakukan di rumah tanpa alat khusus:\n\n1. Jalan cepat di tempat selama 15-20 menit.\n2. Push-up dengan variasi lutut menyentuh lantai untuk pemula.\n3. Squat untuk memperkuat otot kaki dan bokong.\n4. Plank untuk melatih otot inti (core) selama 30 detik hingga 2 menit.\n5. Stretching ringan untuk melenturkan otot setelah beraktivitas.\n\nLakukan 3-5 kali seminggu dan lakukan pemanasan sebelum mulai agar terhindar dari cedera.',
+ NULL, '2026-03-08'),
+(3, 3, 1, 'Mengelola Stres dengan Teknik Pernapasan 4-7-8',
+ 'Stres berkepanjangan berdampak buruk pada tekanan darah, pola tidur, dan sistem imun. Salah satu teknik sederhana dan efektif adalah pernapasan 4-7-8.\n\nCaranya: tarik napas melalui hidung selama 4 detik, tahan selama 7 detik, lalu buang perlahan melalui mulut selama 8 detik. Ulangi 4 siklus, dua kali sehari.\n\nKombinasikan dengan jurnal syukur harian dan kurangi konsumsi kafein berlebih agar kualitas tidur Anda semakin baik.',
+ NULL, '2026-03-15'),
+(4, 4, 1, 'Mulai Hari dengan 6 Kebiasaan Kecil yang Berdampak Besar',
+ 'Kebiasaan sehat tidak harus dimulai dengan perubahan besar. Mulailah dari 6 hal berikut:\n\nMinum segelas air putih setelah bangun tidur, meregangkan badan 5 menit, sarapan tinggi protein, berjalan pagi 10 menit, menulis satu target harian, dan tidur sebelum pukul 23.00.\n\nCatat progres Anda setiap hari. Setelah 21 hari, kebiasaan ini akan terasa alami dan mampu menurunkan risiko penyakit degeneratif secara signifikan.',
+ NULL, '2026-03-22');
+
+-- =====================================================================
+-- 5. TABEL: kandungan_gizi  (nilai per 100 gram)
+-- =====================================================================
+DROP TABLE IF EXISTS `kandungan_gizi`;
+CREATE TABLE `kandungan_gizi` (
+    `id_gizi`              INT(11)      NOT NULL AUTO_INCREMENT,
+    `id_admin`             INT(11)      DEFAULT NULL,
+    `nama_makanan_minuman` VARCHAR(120) NOT NULL,
+    `kategori`             ENUM('Makanan','Minuman') NOT NULL DEFAULT 'Makanan',
+    `porsi`                VARCHAR(50)  NOT NULL DEFAULT '100 gram',
+    `kalori`               DECIMAL(7,2) NOT NULL DEFAULT 0.00,
+    `karbohidrat`          DECIMAL(7,2) NOT NULL DEFAULT 0.00,
+    `protein`              DECIMAL(7,2) NOT NULL DEFAULT 0.00,
+    `lemak`                DECIMAL(7,2) NOT NULL DEFAULT 0.00,
+    PRIMARY KEY (`id_gizi`),
+    KEY `fk_gizi_admin` (`id_admin`),
+    CONSTRAINT `fk_gizi_admin` FOREIGN KEY (`id_admin`)
+        REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `kandungan_gizi`
+    (`id_gizi`, `id_admin`, `nama_makanan_minuman`, `kategori`, `porsi`, `kalori`, `karbohidrat`, `protein`, `lemak`) VALUES
+(1, 1, 'Nasi Putih Matang',        'Makanan', '100 gram', 130.00, 28.20, 2.70,  0.30),
+(2, 1, 'Ayam Dada Panggang',       'Makanan', '100 gram', 165.00,  0.00, 31.00, 3.60),
+(3, 1, 'Telur Rebus',              'Makanan', '100 gram', 155.00,  1.10, 12.60, 10.60),
+(4, 1, 'Tempe Goreng',             'Makanan', '100 gram', 225.00, 15.00, 19.00, 11.00),
+(5, 1, 'Tahu Putih Kukus',         'Makanan', '100 gram',  76.00,  1.90,  8.10,  4.80),
+(6, 1, 'Alpukat Matang',           'Makanan', '100 gram', 160.00,  8.50,  2.00, 14.70),
+(7, 1, 'Brokoli Rebus',            'Makanan', '100 gram',  35.00,  7.20,  2.40,  0.40),
+(8, 1, 'Oatmeal (tanak air)',      'Makanan', '100 gram',  71.00, 12.00,  2.50,  1.50),
+(9, 1, 'Jus Alpukat Madu',         'Minuman', '100 gram', 115.00, 13.00,  1.20,  6.50),
+(10,1, 'Air Kelapa Murni',         'Minuman', '100 gram',  19.00,  3.70,  0.70,  0.20),
+(11,1, 'Jus Jeruk Peras (tanpa gula)', 'Minuman', '100 gram', 45.00, 10.40, 0.70, 0.20),
+(12,1, 'Susu Kedelai Tawar',       'Minuman', '100 gram',  54.00,  2.90,  3.30,  2.00);
+
+-- =====================================================================
+-- 6. TABEL: resep
+-- =====================================================================
+DROP TABLE IF EXISTS `resep`;
+CREATE TABLE `resep` (
+    `id_resep`          INT(11)      NOT NULL AUTO_INCREMENT,
+    `id_admin`          INT(11)      DEFAULT NULL,
+    `judul_resep`       VARCHAR(180) NOT NULL,
+    `deskripsi`         VARCHAR(255) NOT NULL,
+    `bahan_bahan`       TEXT         NOT NULL,
+    `langkah_pembuatan` TEXT         NOT NULL,
+    `waktu_masak`       INT(11)      NOT NULL DEFAULT 0,
+    `status_publikasi`  ENUM('draft','dipublikasikan') NOT NULL DEFAULT 'draft',
+    `total_kalori`      INT(11)      NOT NULL DEFAULT 0,
+    `foto_resep`        VARCHAR(255) DEFAULT NULL,
+    PRIMARY KEY (`id_resep`),
+    KEY `fk_resep_admin` (`id_admin`),
+    CONSTRAINT `fk_resep_admin` FOREIGN KEY (`id_admin`)
+        REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `resep`
+    (`id_resep`, `id_admin`, `judul_resep`, `deskripsi`, `bahan_bahan`, `langkah_pembuatan`, `waktu_masak`, `status_publikasi`, `total_kalori`, `foto_resep`) VALUES
+(1, 1, 'Salad Quinoa Ayam Panggang',
+ 'Salad tinggi protein dengan quinoa dan ayam panggang rendah lemak.',
+ '100 gram quinoa mentah\n150 gram dada ayam\n50 gram selada romaine\n1 buah tomat cherry\n1 sdm minyak zaitun\n1 sdt perasan lemon\nLada hitam secukupnya',
+ 'Rebus quinoa dengan air selama 15 menit hingga mengembang.\nMarinasi ayam dengan lemon, lada, dan sedikit minyak zaitun.\nPanggang ayam selama 10 menit tiap sisi hingga matang.\nTata selada, tomat, dan quinoa dalam mangkuk.\nIris ayam panggang di atas salad dan sajikan.',
+ 25, 'dipublikasikan', 420, NULL),
+(2, 1, 'Jus Alpukat Madu Low Sugar',
+ 'Minuman segar kaya lemak sehat, cocok untuk menu sarapan.',
+ '1 buah alpukat matang\n200 ml air dingin\n1 sdm madu murni\n2 sdm susu kedelai\nEs batu secukupnya',
+ 'Keruk daging alpukat dan masukkan ke blender.\nTambahkan air dingin, madu, dan susu kedelai.\nBlender hingga halus dan lembut.\nTuang ke gelas, tambahkan es batu, lalu sajikan.',
+ 10, 'dipublikasikan', 210, NULL),
+(3, 1, 'Sup Brokoli Tahu Putih',
+ 'Sup hangat rendah kalori dengan protein nabati yang mengenyangkan.',
+ '150 gram brokoli\n100 gram tahu putih\n500 ml kaldu ayam rendah garam\n2 siung bawang putih\n1/2 bawang bombay\nSeledri secukupnya',
+ 'Tumis bawang putih dan bawang bombay tanpa minyak berlebih.\nMasukkan kaldu, didihkan.\nTambahkan tahu dan brokoli, masak 7 menit.\nBumbui lada dan sedikit garam, taburi seledri.\nSajikan selagi hangat.',
+ 20, 'dipublikasikan', 175, NULL),
+(4, 1, 'Oatmeal Pisang Kismis (Draft)',
+ 'Sarapan cepat saji kaya serat, masih dalam tahap penyempurnaan resep.',
+ '50 gram oatmeal instan\n1 buah pisang ambon\n1 sdm kismis\n200 ml susu rendah lemak',
+ 'Panaskan susu hingga hangat.\nMasukkan oatmeal, aduk hingga mengental.\nTambahkan irisan pisang dan kismis.\nSajikan hangat.',
+ 8, 'draft', 285, NULL);
+
+-- =====================================================================
+-- 7. TABEL: tempat_sehat
+-- =====================================================================
+DROP TABLE IF EXISTS `tempat_sehat`;
+CREATE TABLE `tempat_sehat` (
+    `id_tempat`   INT(11)      NOT NULL AUTO_INCREMENT,
+    `id_admin`    INT(11)      DEFAULT NULL,
+    `nama_tempat` VARCHAR(150) NOT NULL,
+    `alamat`      VARCHAR(255) NOT NULL,
+    `deskripsi`   TEXT,
+    `kontak`      VARCHAR(50)  DEFAULT NULL,
+    `foto_tempat` VARCHAR(255) DEFAULT NULL,
+    `foto_menu`   VARCHAR(255) DEFAULT NULL,
+    `link_maps`   VARCHAR(255) DEFAULT NULL,
+    `link_instagram`  VARCHAR(255) DEFAULT NULL,
+    `link_grabfood`   VARCHAR(255) DEFAULT NULL,
+    `link_shopeefood` VARCHAR(255) DEFAULT NULL,
+    PRIMARY KEY (`id_tempat`),
+    KEY `fk_tempat_admin` (`id_admin`),
+    CONSTRAINT `fk_tempat_admin` FOREIGN KEY (`id_admin`)
+        REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `tempat_sehat`
+    (`id_tempat`, `id_admin`, `nama_tempat`, `alamat`, `deskripsi`, `kontak`, `foto_tempat`, `foto_menu`, `link_maps`) VALUES
+(1, 1, 'RealJuice Healthy Café',
+ 'Jl. Veteran No. 88, Padang, Sumatera Barat',
+ 'Kafe sehat yang menyajikan aneka jus segar tanpa gula tambahan, salad bowl, serta menu rendah kalori. Semua bahan dipilih harian dari petani lokal.',
+ '0812-3456-7890', NULL, NULL, 'https://maps.google.com/?q=RealJuice+Healthy+Cafe+Padang'),
+(2, 1, 'Salad Bar Segar Hijau',
+ 'Jl. Gajah Mada No. 12, Padang, Sumatera Barat',
+ 'Kedai salad dengan konsep build-your-own bowl. Tersedia pilihan protein nabati dan hewani dengan informasi gizi pada setiap menunya.',
+ '0813-9876-5432', NULL, NULL, 'https://maps.google.com/?q=Salad+Bar+Segar+Hijau+Padang');
+
+-- =====================================================================
+-- 8. TABEL: menu  (sub-menu makanan/minuman per tempat)
+-- =====================================================================
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
+    `id_menu`        INT(11)      NOT NULL AUTO_INCREMENT,
+    `id_tempat`      INT(11)      NOT NULL,
+    `nama_menu`      VARCHAR(150) NOT NULL,
+    `deskripsi`      TEXT,
+    `harga`          INT(11)      NOT NULL DEFAULT 0,
+    `protein`        DECIMAL(7,2) NOT NULL DEFAULT 0.00,
+    `karbohidrat`    DECIMAL(7,2) NOT NULL DEFAULT 0.00,
+    `lemak`          DECIMAL(7,2) NOT NULL DEFAULT 0.00,
+    `estimasi_waktu` INT(11)      NOT NULL DEFAULT 0,
+    `foto_menu`      VARCHAR(255) DEFAULT NULL,
+    `id_kategori_menu` INT(11)     DEFAULT NULL,
+    PRIMARY KEY (`id_menu`),
+    KEY `fk_menu_tempat` (`id_tempat`),
+    CONSTRAINT `fk_menu_tempat` FOREIGN KEY (`id_tempat`)
+        REFERENCES `tempat_sehat` (`id_tempat`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk_menu_kategori` FOREIGN KEY (`id_kategori_menu`)
+        REFERENCES `menu_categories` (`id_kategori_menu`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- =====================================================================
+-- 8b. TABEL: menu_categories  (kategori pengelompokan menu per tempat)
+-- =====================================================================
+DROP TABLE IF EXISTS `menu_categories`;
+CREATE TABLE `menu_categories` (
+    `id_kategori_menu`  INT(11)      NOT NULL AUTO_INCREMENT,
+    `nama_kategori`     VARCHAR(80)  NOT NULL,
+    `deskripsi`         TEXT         DEFAULT NULL,
+    PRIMARY KEY (`id_kategori_menu`),
+    UNIQUE KEY `uq_menu_cat_nama` (`nama_kategori`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `menu_categories` (`id_kategori_menu`, `nama_kategori`, `deskripsi`) VALUES
+(1, 'Jus', 'Minuman jus segar dari buah-buahan pilihan tanpa gula tambahan.'),
+(2, 'Smoothies', 'Minuman kental buah/dairy yang kaya serat dan cocok untuk sarapan.'),
+(3, 'Makanan Sehat', 'Hidangan utama rendah kalori dengan protein dan sayur seimbang.'),
+(4, 'Camilan Sehat', 'Camilan rendah kalori untuk menemani aktivitas harian.');
+
+INSERT INTO `menu`
+    (`id_menu`, `id_tempat`, `nama_menu`, `deskripsi`, `harga`, `protein`, `karbohidrat`, `lemak`, `estimasi_waktu`, `foto_menu`) VALUES
+(1, 1, 'Jus Alpukat Madu',      'Alpukat matang, madu murni, tanpa gula tambahan.',        25000,  1.20, 13.00,  6.50, 5,  NULL),
+(2, 1, 'Green Detox Juice',     'Campuran seledri, apel hijau, lemon, dan jahe.',          27000,  1.00, 11.50,  0.40, 7,  NULL),
+(3, 1, 'Grilled Chicken Bowl',  'Ayam panggang, quinoa, brokoli, dan saus lemon.',         45000, 31.00, 28.50,  8.20, 15, NULL),
+(4, 1, 'Air Kelapa Murni',      'Kelapa segar langsung dari kebun lokal.',                 15000,  0.70,  3.70,  0.20, 3,  NULL),
+(5, 2, 'Salad Buah Yogurt',     'Potongan buah segar dengan yogurt rendah lemak.',         28000,  4.20, 22.00,  3.10, 8,  NULL),
+(6, 2, 'Tofu Sesame Bowl',      'Tahu panggang, wijen, edamame, dan saus rendah garam.',   35000, 18.00, 17.50,  9.00, 12, NULL);
+
+-- =====================================================================
+-- 9. TABEL: kalkulator_bmi
+-- =====================================================================
+DROP TABLE IF EXISTS `kalkulator_bmi`;
+CREATE TABLE `kalkulator_bmi` (
+    `id_bmi`          INT(11)      NOT NULL AUTO_INCREMENT,
+    `id_pengguna`     INT(11)      NOT NULL,
+    `umur`            INT(11)      NOT NULL,
+    `jenis_kelamin`   ENUM('L','P') NOT NULL,
+    `berat_badan`     DECIMAL(5,2) NOT NULL,
+    `tinggi_badan`    DECIMAL(5,2) NOT NULL,
+    `nilai_bmi`       DECIMAL(5,2) NOT NULL,
+    `kategori_bmi`    VARCHAR(30)  NOT NULL,
+    `estimasi_kalori` INT(11)      NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id_bmi`),
+    KEY `fk_bmi_pengguna` (`id_pengguna`),
+    CONSTRAINT `fk_bmi_pengguna` FOREIGN KEY (`id_pengguna`)
+        REFERENCES `pengguna` (`id_pengguna`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `kalkulator_bmi`
+    (`id_bmi`, `id_pengguna`, `umur`, `jenis_kelamin`, `berat_badan`, `tinggi_badan`, `nilai_bmi`, `kategori_bmi`, `estimasi_kalori`) VALUES
+(1, 1, 24, 'L', 62.50, 170.00, 21.6, 'Normal', 2359),
+(2, 2, 27, 'P', 55.00, 160.00, 21.5, 'Normal', 1896);
+
+-- =====================================================================
+-- 10. TABEL: ulasan_rating
+-- =====================================================================
+DROP TABLE IF EXISTS `ulasan_rating`;
+CREATE TABLE `ulasan_rating` (
+    `id_usulan_rating` INT(11)   NOT NULL AUTO_INCREMENT,
+    `id_pengguna`      INT(11)   NOT NULL,
+    `id_tempat`        INT(11)   NOT NULL,
+    `rating`           TINYINT(1) NOT NULL DEFAULT 5,
+    `komentar`         TEXT,
+    `tanggal_ulasan`   DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id_usulan_rating`),
+    KEY `fk_ulasan_pengguna` (`id_pengguna`),
+    KEY `fk_ulasan_tempat` (`id_tempat`),
+    CONSTRAINT `fk_ulasan_pengguna` FOREIGN KEY (`id_pengguna`)
+        REFERENCES `pengguna` (`id_pengguna`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk_ulasan_tempat` FOREIGN KEY (`id_tempat`)
+        REFERENCES `tempat_sehat` (`id_tempat`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `ulasan_rating`
+    (`id_usulan_rating`, `id_pengguna`, `id_tempat`, `rating`, `komentar`, `tanggal_ulasan`) VALUES
+(1, 1, 1, 5, 'Jusnya segar tanpa gula tambahan, tempatnya bersih dan nyaman. Recommended!', '2026-03-10 10:15:00'),
+(2, 2, 1, 4, 'Menu grilled chicken bowl-nya enak dan porsinya pas. Harga masih terjangkau.', '2026-03-12 19:40:00'),
+(3, 1, 2, 5, 'Konsep build-your-own salad-nya menarik, informasi gizi tiap menu jelas.',   '2026-03-18 12:05:00');
+
+-- =====================================================================
+-- 11. TABEL: laporan_statistik
+-- =====================================================================
+DROP TABLE IF EXISTS `laporan_statistik`;
+CREATE TABLE `laporan_statistik` (
+    `id_laporan`     INT(11)  NOT NULL AUTO_INCREMENT,
+    `id_admin`       INT(11)  DEFAULT NULL,
+    `total_pengguna` INT(11)  NOT NULL DEFAULT 0,
+    `total_artikel`  INT(11)  NOT NULL DEFAULT 0,
+    `total_kalori`   INT(11)  NOT NULL DEFAULT 0,
+    `total_resep`    INT(11)  NOT NULL DEFAULT 0,
+    `total_tempat`   INT(11)  NOT NULL DEFAULT 0,
+    `total_menu`     INT(11)  NOT NULL DEFAULT 0,
+    `tanggal_cetak`  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id_laporan`),
+    KEY `fk_laporan_admin` (`id_admin`),
+    CONSTRAINT `fk_laporan_admin` FOREIGN KEY (`id_admin`)
+        REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `laporan_statistik`
+    (`id_laporan`, `id_admin`, `total_pengguna`, `total_artikel`, `total_kalori`, `total_resep`, `total_tempat`, `total_menu`, `tanggal_cetak`) VALUES
+(1, 1, 2, 4, 805, 4, 2, 6, '2026-03-25 08:30:00');
+
+-- =====================================================================
+-- Selesai. Database HealthyHabit siap digunakan.
+-- =====================================================================
+
+SET FOREIGN_KEY_CHECKS = 1;

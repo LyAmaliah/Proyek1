@@ -1,0 +1,9 @@
+# Folder upload hanya untuk berkas gambar.
+# Blokir eksekusi skrip apa pun di dalam folder ini.
+
+<FilesMatch "\.(php|phtml|php[0-9]|pl|py|cgi|asp|aspx|sh)$">
+    Require all denied
+</FilesMatch>
+
+Options -ExecCGI -Indexes
+AddType text/plain .php .phtml .pl .py .cgi

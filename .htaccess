@@ -1,0 +1,22 @@
+# ---------------------------------------------------------------
+# HealthyHabit — Konfigurasi Apache
+# Pastikan modul mod_rewrite aktif di httpd.conf (XAMPP).
+# ---------------------------------------------------------------
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Biarkan file/gambar/CSS/JS dilayani langsung
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Semua request lain masuk ke front controller
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Cegah hotlink database & file sensitif
+<FilesMatch "\.(sql|md|log)$">
+    Require all denied
+</FilesMatch>

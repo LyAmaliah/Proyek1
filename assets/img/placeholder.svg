@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Gambar tidak tersedia">
+  <rect width="400" height="300" fill="#E8F5E9"/>
+  <g transform="translate(200 132)" fill="none" stroke="#27824B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-34 -6 h68 a10 10 0 0 1 10 10 v20 a34 34 0 0 1 -34 34 h-20 a34 34 0 0 1 -34 -34 v-20 a10 10 0 0 1 10 -10 z"/>
+    <path d="M-18 -6 c0 -16 8 -26 18 -26 s18 10 18 26"/>
+    <path d="M-24 20 h48"/>
+  </g>
+  <text x="200" y="235" font-family="Poppins, Arial, sans-serif" font-size="17" fill="#27824B" text-anchor="middle" font-weight="600">HealthyHabit</text>
+  <text x="200" y="260" font-family="Poppins, Arial, sans-serif" font-size="12" fill="#7a8a80" text-anchor="middle">Gambar tidak tersedia</text>
+</svg>
