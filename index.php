@@ -4,7 +4,7 @@
  * Sistem Pembentukan Kebiasaan Hidup Sehat Berbasis Web Native
  *
  * Semua request (kecuali file statis) diarahkan ke file ini
- * melalui modul mod_rewrite Apache (.htaccess).
+ * melalui modul mod_rewrite Apache (.htaccess).  Bismillah
  */
 
 if (session_status() === PHP_SESSION_NONE) {
