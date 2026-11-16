@@ -16,10 +16,10 @@ class Auth
         self::startSession();
         session_regenerate_id(true);
         $_SESSION['user'] = [
-            'id_pengguna'   => (int) $user['id_pengguna'],
-            'username'      => $user['username'],
-            'nama_lengkap'  => $user['nama_lengkap'] ?? $user['username'],
-            'role'          => $user['role'],
+            'id_pengguna' => (int) $user['id_pengguna'],
+            'username' => $user['username'],
+            'nama_lengkap' => $user['nama_lengkap'] ?? $user['username'],
+            'role' => $user['role'],
         ];
         return $_SESSION['user'];
     }
@@ -54,6 +54,11 @@ class Auth
     public static function userId(): ?int
     {
         return isset($_SESSION['user']['id_pengguna']) ? (int) $_SESSION['user']['id_pengguna'] : null;
+    }
+
+    public static function adminId(): ?int
+    {
+        return self::isAdmin() ? self::userId() : null;
     }
 
     public static function requireAdmin(): void
