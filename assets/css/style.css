@@ -71,18 +71,16 @@ body {
 /* Ambient organic mesh — ditarik ke atas agar menutupi sampai ujung layar */
 body::before {
     content: "";
-    position: fixed; 
-    top: -20px;    
-    left: -15%; 
-    right: -15%; 
-    bottom: -15%;
-    z-index: -2; pointer-events: none;
+    position: fixed;
+    inset: -15%;
+    z-index: -2;
+    pointer-events: none;
     background:
-        radial-gradient(40% 40% at 10% 14%, rgba(53, 161, 94, .30), transparent 70%),
-        radial-gradient(36% 36% at 92% 8%, rgba(245, 166, 35, .24), transparent 70%),
+        radial-gradient(45% 45% at 8% 12%, rgba(53, 161, 94, .34), transparent 72%),
+        radial-gradient(42% 42% at 94% 10%, rgba(245, 166, 35, .28), transparent 72%),
         radial-gradient(42% 42% at 82% 92%, rgba(39, 130, 75, .20), transparent 70%),
         radial-gradient(34% 34% at 8% 90%, rgba(245, 166, 35, .15), transparent 70%),
-        radial-gradient(30% 30% at 50% 50%, rgba(232, 245, 233, .9), transparent 80%);
+        radial-gradient(35% 35% at 50% 45%, rgba(232, 245, 233, .85), transparent 80%);
     animation: auraBreath 28s ease-in-out infinite;
     will-change: transform;
 }
@@ -202,33 +200,6 @@ a:hover { text-decoration: none; }
 @keyframes dotBlink {
     0%, 100% { opacity: .5; }
     50%      { opacity: 1; }
-}
-
-/* Reveal saat scroll */
-.reveal {
-    opacity: 0; transform: translateY(32px) scale(.985); filter: blur(5px);
-    transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease);
-    transition-delay: var(--d, 0s);
-    will-change: opacity, transform;
-}
-.reveal.in { opacity: 1; transform: none; filter: none; }
-
-.reveal-stagger > .reveal:nth-child(1)  { --d: .00s; }
-.reveal-stagger > .reveal:nth-child(2)  { --d: .08s; }
-.reveal-stagger > .reveal:nth-child(3)  { --d: .16s; }
-.reveal-stagger > .reveal:nth-child(4)  { --d: .24s; }
-.reveal-stagger > .reveal:nth-child(5)  { --d: .32s; }
-.reveal-stagger > .reveal:nth-child(6)  { --d: .40s; }
-.reveal-stagger > .reveal:nth-child(7)  { --d: .48s; }
-.reveal-stagger > .reveal:nth-child(8)  { --d: .56s; }
-.reveal-stagger > .reveal:nth-child(n+9) { --d: .64s; }
-
-.fade-up { animation: fadeUp .9s var(--ease) both; }
-.delay-1 { animation-delay: .1s; } .delay-2 { animation-delay: .2s; }
-.delay-3 { animation-delay: .3s; } .delay-4 { animation-delay: .4s; }
-
-@media (scripting: none) {
-    .reveal { opacity: 1; transform: none; filter: none; }
 }
 
 /* ============ Brand ============ */
@@ -411,24 +382,36 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
 }
 
 /* ============ Hero (disesuaikan agar tidak bertumpuk dengan navbar style 1) ============ */
+
 .hero {
-    position: relative; overflow: hidden;
+    position: relative;
+    overflow: visible;
     padding-top: 7.5rem !important;
-    padding: calc(3.5rem + 20px) 0 3rem; /* Kurangi padding bawah hero */
+    padding-bottom: 3rem;
     margin-bottom: 1.5rem;
-    background:
-        radial-gradient(1000px 420px at 92% -10%, rgba(245, 166, 35, .24), transparent 60%),
-        radial-gradient(800px 380px at 0% 0%, rgba(53, 161, 94, .16), transparent 60%),
-        linear-gradient(135deg, rgba(232, 245, 233, .95) 0%, rgba(255, 255, 255, .82) 70%);
-    border-radius: 0 0 48px 48px;
+    background: transparent !important;
+    border-radius: 0 !important;
     isolation: isolate;
 }
-.hero::before, .hero::after {
-    content: ""; position: absolute; z-index: -1; border-radius: 50%;
-    filter: blur(60px); animation: blobMove 16s ease-in-out infinite;
+
+.hero::before {
+    width: 420px;
+    height: 420px;
+    left: -100px;
+    top: -60px;
+    background: rgba(53, 161, 94, .30);
 }
-.hero::before { width: 380px; height: 380px; left: -90px; top: -110px; background: rgba(53, 161, 94, .36); }
-.hero::after  { width: 320px; height: 320px; right: 5%; bottom: -120px; background: rgba(245, 166, 35, .36); animation-delay: -6s; }
+
+.hero::after {
+    width: 380px;
+    height: 380px;
+    right: -60px;
+    top: -40px;
+    bottom: auto;
+    background: rgba(245, 166, 35, .28);
+    animation-delay: -6s;
+}
+
 .hero h1 {
     font-size: clamp(2rem, 4.6vw, 3.4rem); font-weight: 800;
     color: var(--hijau-dark); line-height: 1.08; letter-spacing: -.04em;
@@ -465,10 +448,12 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
     transform-origin: left; animation: growX .9s var(--ease) both;
 }
 
+/* ============ Card ============ */
 .card-soft {
-    position: relative; isolation: isolate;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     background:
-        radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(245, 166, 35, .10), transparent 45%),
         linear-gradient(145deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .22)),
         var(--glass-bg);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
@@ -476,42 +461,53 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius);
     box-shadow: var(--glass-shadow), var(--glass-inset);
-    transition: transform .6s var(--ease), box-shadow .5s var(--ease), border-color .4s;
-    transform: perspective(900px) rotateX(var(--ry, 0deg)) rotateY(var(--rx, 0deg));
-    overflow: hidden;
-    will-change: transform;
+    transition: transform .45s var(--spring), box-shadow .35s var(--ease), border-color .3s var(--ease);
 }
-.card-soft::before {
-    content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
-    border-radius: inherit; padding: 1px;
-    background: linear-gradient(145deg, rgba(255, 255, 255, .95), rgba(255, 255, 255, 0) 38%, rgba(245, 166, 35, .0) 70%, rgba(39, 130, 75, .16));
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-    transition: background .5s;
-}
+
+.card-soft::before,
 .card-soft::after {
-    content: ""; position: absolute; z-index: 2; top: -20%; left: 0; width: 38%; height: 140%;
+    content: "";
+    position: absolute;
     pointer-events: none;
+}
+
+.card-soft::before {
+    z-index: 2;
+    top: -10%;
+    left: 0;
+    width: 45%;
+    height: 120%;
     background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
-    transform: translateX(-160%) skewX(-22deg);
+    transform: translateX(-130%) skewX(-22deg);
 }
+
+.card-soft::after {
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .28), transparent 55%);
+}
+
+.card-soft .card-body {
+    position: relative;
+    z-index: 3;
+    padding: 1.3rem;
+}
+
 .card-soft:hover {
-    transform: perspective(900px) rotateX(var(--ry, 0deg)) rotateY(var(--rx, 0deg)) translateY(-10px) scale(1.012);
-    transition-timing-function: var(--spring);
-    box-shadow: var(--shadow-hover), 0 0 0 1px rgba(245, 166, 35, .35), 0 0 42px rgba(245, 166, 35, .14), var(--glass-inset);
-    border-color: rgba(245, 166, 35, .5);
+    transform: translateY(-4px);
+    border-color: rgba(39, 130, 75, .28);
+    box-shadow: 0 10px 24px rgba(39, 130, 75, .16), inset 0 1px 1px rgba(255, 255, 255, .85);
 }
+
+.card-soft:active {
+    transform: translateY(0);
+    transition-duration: .12s;
+}
+
 .card-soft:hover::before {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0) 38%, rgba(245, 166, 35, .35) 100%);
+    animation: shine .9s var(--ease);
 }
-.card-soft:hover::after { animation: shine 1.1s var(--ease); }
-.card-soft .card-body { padding: 1.3rem; position: relative; z-index: 1; }
-.card-soft .card-title {
-    font-family: var(--font-heading); font-size: 1.05rem; color: var(--teks);
-    font-weight: 700; letter-spacing: -.02em; line-height: 1.3; transition: color .25s;
-}
-.card-soft:hover .card-title { color: var(--hijau); }
 
 .img-cover {
     width: 100%; height: 100%;
