@@ -1,4 +1,12 @@
-<?php /** @var array $daftar @var string $q */ ?>
+<?php 
+/** 
+ * @var array $daftar 
+ * @var string $q 
+ * @var array $kategori 
+ * @var string|null $kategoriAktif 
+ */ 
+$kategori = $kategori ?? ['Makanan', 'Minuman'];
+?>
 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
     <div>
         <h1 class="h4 mb-1">Kelola Kandungan Gizi &amp; Kalori</h1>
