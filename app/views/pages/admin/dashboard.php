@@ -1,8 +1,12 @@
 <?php
 /**
-- Dashboard admin + Laporan Statistik gabungan (FR-07).
-- @var array $rekap @var array $riwayat @var array $perKategori
-- @var array $artikelBaru @var int $totalUlasan @var int $totalGizi
+ * Dashboard admin + Laporan Statistik gabungan (FR-07).
+ * @var array $rekap
+ * @var array $riwayat
+ * @var array $perKategori
+ * @var array $artikelBaru
+ * @var int $totalUlasan
+ * @var int $totalGizi
  */
 $kartu = [
     ['label' => 'Total Pengguna',      'num' => $rekap['total_pengguna'], 'icon' => 'bi-people',           'color' => ''],
@@ -45,10 +49,11 @@ $maxKategori = max(array_map(fn($r) => (int) $r['jumlah'], $perKategori ?: [['ju
     <?php endforeach; ?>
 </div>
 
-<div class="row g-4">
-    <!-- ===== Kolom Kiri: Sebaran Artikel per Kategori ===== -->
+<!-- ===== BARIS 1: Sebaran Artikel (Kiri) & Artikel Terbaru (Kanan) ===== -->
+<div class="row g-4 mb-4">
+    <!-- Kolom Kiri: Sebaran Artikel per Kategori -->
     <div class="col-lg-5">
-        <div class="panel-white h-100">
+        <div class="panel-white">
             <h6 class="mb-3"><i class="bi bi-bar-chart-line me-2 text-success"></i>Sebaran Artikel per Kategori</h6>
             <?php if (!$perKategori): ?>
                 <p class="small text-muted mb-0">Belum ada data kategori.</p>
@@ -68,9 +73,9 @@ $maxKategori = max(array_map(fn($r) => (int) $r['jumlah'], $perKategori ?: [['ju
         </div>
     </div>
 
-    <!-- ===== Kolom Kanan: Artikel Terbaru + Riwayat ===== -->
+    <!-- Kolom Kanan: Artikel Terbaru -->
     <div class="col-lg-7">
-        <div class="panel-white mb-4">
+        <div class="panel-white">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h6 class="mb-0"><i class="bi bi-clock-history me-2 text-success"></i>Artikel Terbaru</h6>
                 <a href="<?= BASE_URL ?>/admin/artikel" class="small fw-semibold text-success">Lihat semua</a>
@@ -97,39 +102,40 @@ $maxKategori = max(array_map(fn($r) => (int) $r['jumlah'], $perKategori ?: [['ju
                 </table>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="panel-white">
-            <h6 class="mb-3"><i class="bi bi-printer me-2 text-success"></i>Riwayat Pencetakan Laporan</h6>
-            <div class="table-responsive">
-                <table class="table table-custom align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th>#</th><th>Admin</th><th>Tanggal Cetak</th>
-                            <th class="text-end">Pengguna</th>
-                            <th class="text-end">Artikel</th>
-                            <th class="text-end">Resep</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (!$riwayat): ?>
-                            <tr><td colspan="6" class="text-center text-muted py-4">
-                                Belum pernah mencetak laporan.
-                            </td></tr>
-                        <?php endif; ?>
-                        <?php foreach ($riwayat as $r): ?>
-                            <tr>
-                                <td><?= (int) $r['id_laporan'] ?></td>
-                                <td><?= e($r['username'] ?? '-') ?></td>
-                                <td class="small text-nowrap"><?= tanggal_indo($r['tanggal_cetak'], true) ?></td>
-                                <td class="text-end"><?= (int) $r['total_pengguna'] ?></td>
-                                <td class="text-end"><?= (int) $r['total_artikel'] ?></td>
-                                <td class="text-end"><?= (int) $r['total_resep'] ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<!-- ===== BARIS 2: Riwayat Pencetakan Laporan (Full Width) ===== -->
+<div class="panel-white">
+    <h6 class="mb-3"><i class="bi bi-printer me-2 text-success"></i>Riwayat Pencetakan Laporan</h6>
+    <div class="table-responsive">
+        <table class="table table-custom align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>#</th><th>Admin</th><th>Tanggal Cetak</th>
+                    <th class="text-end">Pengguna</th>
+                    <th class="text-end">Artikel</th>
+                    <th class="text-end">Resep</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!$riwayat): ?>
+                    <tr><td colspan="6" class="text-center text-muted py-4">
+                        Belum pernah mencetak laporan.
+                    </td></tr>
+                <?php endif; ?>
+                <?php foreach ($riwayat as $r): ?>
+                    <tr>
+                        <td><?= (int) $r['id_laporan'] ?></td>
+                        <td><?= e($r['username'] ?? '-') ?></td>
+                        <td class="small text-nowrap"><?= tanggal_indo($r['tanggal_cetak'], true) ?></td>
+                        <td class="text-end"><?= (int) $r['total_pengguna'] ?></td>
+                        <td class="text-end"><?= (int) $r['total_artikel'] ?></td>
+                        <td class="text-end"><?= (int) $r['total_resep'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 </div>
 
