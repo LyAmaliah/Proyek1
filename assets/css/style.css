@@ -1051,7 +1051,7 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
     border-bottom: 1px solid rgba(255, 255, 255, .8);
     box-shadow: 0 6px 24px rgba(39, 130, 75, .07), inset 0 -1px 1px rgba(39, 130, 75, .04);
 }
-.admin-content { flex: 1; animation: fadeUp .7s var(--ease) both; }
+.admin-content { flex: 1; }
 
 .sidebar-backdrop {
     position: fixed; inset: 0; background: rgba(10, 40, 24, .45);
