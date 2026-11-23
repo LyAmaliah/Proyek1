@@ -16,7 +16,7 @@
                 </span>
                 <h1 class="mb-3">
                     <span class="text-gradient">Wujudkan Hidup Sehat<br>
-                    Bersama HealthyHabit</span>
+                        Bersama HealthyHabit</span>
                 </h1>
                 <p class="lead mb-4">
                     Pantau kesehatan Anda dengan mudah! Hitung BMI, cek kalori makanan,
@@ -24,7 +24,7 @@
                 </p>
                 <?php if (!Auth::check()): ?>
                     <div class="d-flex flex-wrap gap-2">
-                        <a href="<?= BASE_URL.'/auth/register' ?>" class="btn btn-green fw-semibold px-4">
+                        <a href="<?= BASE_URL . '/auth/register' ?>" class="btn btn-green fw-semibold px-4">
                             <i class="bi bi-rocket-takeoff me-1"></i>Mulai Sekarang
                         </a>
                     </div>
@@ -36,8 +36,8 @@
                             ['icon' => 'bi-journal-richtext', 'num' => $statistik['resep'], 'label' => 'Resep Sehat'],
                             ['icon' => 'bi-shop', 'num' => $statistik['tempat'], 'label' => 'Tempat Sehat'],
                         ] as $s): ?>
-                            <div class="col-6 col-lg-3">
-                                <div class="stat-card">
+                            <div class="col-6 col-xl-3">
+                                <div class="stat-card h-100">
                                     <span class="stat-icon"><i class="bi <?= $s['icon'] ?>"></i></span>
                                     <div>
                                         <div class="stat-num"><?= (int) $s['num'] ?>+</div>
@@ -61,7 +61,8 @@
     <div class="calc-panel d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
         <div>
             <h3 class="mb-1 text-white"><i class="bi bi-speedometer2 me-2"></i>Kalkulator BMI &amp; Estimasi Kalori</h3>
-            <p class="mb-0 opacity-75">Tahu berat badan idealmu? Hitung BMI dan kebutuhan kalori harian secara otomatis.</p>
+            <p class="mb-0 opacity-75">Tahu berat badan idealmu? Hitung BMI dan kebutuhan kalori harian secara otomatis.
+            </p>
         </div>
         <a href="<?= BASE_URL ?>/bmi" class="btn btn-orange fw-semibold px-4 flex-shrink-0">
             Hitung BMI Saya <i class="bi bi-arrow-right ms-1"></i>
@@ -83,24 +84,27 @@
 
     <div class="row g-4">
         <?php if (!$artikel): ?>
-            <div class="col-12"><div class="alert alert-info border-0">Belum ada artikel.</div></div>
+            <div class="col-12">
+                <div class="alert alert-info border-0">Belum ada artikel.</div>
+            </div>
         <?php endif; ?>
         <?php foreach ($artikel as $a): ?>
             <div class="col-md-4">
                 <div class="card-soft h-100">
                     <div class="ratio ratio-article">
-                        <img src="<?= img_url($a['foto_artikel'], 'artikel') ?>"
-                             alt="<?= e($a['judul_artikel']) ?>" class="img-cover">
+                        <img src="<?= img_url($a['foto_artikel'], 'artikel') ?>" alt="<?= e($a['judul_artikel']) ?>"
+                            class="img-cover">
                     </div>
                     <div class="card-body d-flex flex-column">
                         <div class="mb-2">
                             <span class="tag"><?= e($a['nama_kategori'] ?? 'Umum') ?></span>
-                            <span class="tag gray ms-1"><i class="bi bi-calendar3 me-1"></i><?= tanggal_indo($a['tanggal_terbit']) ?></span>
+                            <span class="tag gray ms-1"><i
+                                    class="bi bi-calendar3 me-1"></i><?= tanggal_indo($a['tanggal_terbit']) ?></span>
                         </div>
                         <h5 class="card-title"><?= e($a['judul_artikel']) ?></h5>
                         <p class="text-muted small flex-grow-1"><?= e(excerpt($a['isi_artikel'], 110)) ?></p>
                         <a href="<?= BASE_URL ?>/artikel/<?= (int) $a['id_artikel'] ?>"
-                           class="btn btn-sm btn-green align-self-start">
+                            class="btn btn-sm btn-green align-self-start">
                             Baca Selengkapnya <i class="bi bi-arrow-right ms-1"></i>
                         </a>
                     </div>
@@ -124,24 +128,28 @@
 
     <div class="row g-4">
         <?php if (!$resep): ?>
-            <div class="col-12"><div class="alert alert-info border-0">Belum ada resep dipublikasikan.</div></div>
+            <div class="col-12">
+                <div class="alert alert-info border-0">Belum ada resep dipublikasikan.</div>
+            </div>
         <?php endif; ?>
         <?php foreach ($resep as $r): ?>
             <div class="col-md-4">
                 <div class="card-soft h-100">
                     <div class="ratio ratio-thumb">
-                        <img src="<?= img_url($r['foto_resep'], 'resep') ?>"
-                             alt="<?= e($r['judul_resep']) ?>" class="img-cover">
+                        <img src="<?= img_url($r['foto_resep'], 'resep') ?>" alt="<?= e($r['judul_resep']) ?>"
+                            class="img-cover">
                     </div>
                     <div class="card-body d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-start mb-2">
-                            <span class="tag orange"><i class="bi bi-fire me-1"></i><?= (int) $r['total_kalori'] ?> kkal</span>
-                            <span class="tag gray"><i class="bi bi-clock me-1"></i><?= (int) $r['waktu_masak'] ?> menit</span>
+                            <span class="tag orange"><i class="bi bi-fire me-1"></i><?= (int) $r['total_kalori'] ?>
+                                kkal</span>
+                            <span class="tag gray"><i class="bi bi-clock me-1"></i><?= (int) $r['waktu_masak'] ?>
+                                menit</span>
                         </div>
                         <h5 class="card-title"><?= e($r['judul_resep']) ?></h5>
                         <p class="text-muted small flex-grow-1"><?= e(excerpt($r['deskripsi'], 90)) ?></p>
                         <a href="<?= BASE_URL ?>/resep/<?= (int) $r['id_resep'] ?>"
-                           class="btn btn-sm btn-green align-self-start">
+                            class="btn btn-sm btn-green align-self-start">
                             Lihat Resep <i class="bi bi-arrow-right ms-1"></i>
                         </a>
                     </div>
