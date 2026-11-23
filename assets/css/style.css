@@ -1170,7 +1170,9 @@ a:hover > .brand-icon,
     overflow-y: visible;
 }
 
+/* ============ Penyesuaian Global Semua Tabel (Fit 100% Layar) ============ */
 .table-custom {
+    width: 100% !important;
     background: var(--krem);
     border-radius: var(--radius);
     border: 1.5px solid var(--border-ink);
@@ -1188,32 +1190,45 @@ a:hover > .brand-icon,
     font-weight: 700;
     background-color: var(--krem-2) !important;
     color: var(--hijau-dark) !important;
-    font-size: .8rem;
+    font-size: .78rem;
     line-height: 1.35;
     text-transform: uppercase;
-    letter-spacing: .04em;
+    letter-spacing: .03em;
     border-bottom: 1.5px solid var(--border-ink) !important;
-    padding: .85rem 1.15rem;
-    white-space: nowrap;
-    text-align: center !important;
+    padding: .65rem .6rem !important; /* 1. Padding proporsional & hemat ruang */
+    white-space: normal;              /* 2. Biarkan teks header menyesuaikan lebar kolom */
+    vertical-align: middle;
 }
 
 .table tbody td,
 .table-custom tbody td {
-    padding: .85rem 1.15rem;
-    line-height: 1.5;
+    padding: .65rem .6rem !important; /* 3. Padding sel isi lebih pas & rapi */
+    line-height: 1.4;
     vertical-align: middle;
-    font-size: .92rem;
+    font-size: .88rem;
     background: transparent !important;
     color: var(--teks) !important;
-    overflow: visible;
-    white-space: normal;
-    word-break: break-word;
+    word-break: normal;
 }
 
 .table tbody td.text-nowrap,
 .table-custom tbody td.text-nowrap {
     white-space: nowrap;
+}
+
+/* 4. Tombol aksi (Edit & Hapus) dibuat ramping agar hemat ruang horizontal */
+.table td .btn-sm,
+.table-custom td .btn-sm {
+    padding: .25rem .5rem !important;
+    font-size: .8rem !important;
+}
+
+/* 5. Badge tag (Makanan / Minuman / Porsi) dibuat pas */
+.table td .tag,
+.table-custom td .tag {
+    padding: .2rem .55rem !important;
+    font-size: .72rem !important;
+    letter-spacing: 0 !important;
 }
 
 .table-custom tbody tr {
