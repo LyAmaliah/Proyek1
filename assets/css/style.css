@@ -1236,6 +1236,13 @@ a:hover > .brand-icon,
     transition: background .25s;
 }
 
+/* Memberi jarak pemisah manis antara tombol Edit dan Hapus */
+.table td form.d-inline,
+.table-custom td form.d-inline {
+    margin-left: 6px !important;
+    display: inline-block;
+}
+
 .table-custom tbody tr:hover {
     background: var(--krem-2) !important;
 }
