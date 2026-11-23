@@ -515,6 +515,8 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
 
 /* ============ Card ============ */
 .card-soft {
+    display: flex;
+    flex-direction: column;
     position: relative;
     isolation: isolate;
     overflow: hidden;
@@ -558,6 +560,13 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
     position: relative;
     z-index: 3;
     padding: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-soft .card-body .btn {
+    margin-top: auto !important;
 }
 
 .card-soft:hover {
