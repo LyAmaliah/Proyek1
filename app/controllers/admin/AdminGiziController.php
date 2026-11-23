@@ -4,17 +4,20 @@
  */
 class AdminGiziController extends Controller
 {
-    public function index(): void
+        public function index(): void
     {
         Auth::requireAdmin();
 
-        $q = $this->input('q');
+        $q        = $this->input('q');
+        $kategori = $this->input('kategori'); // 1. Tangkap pilihan kategori dari form filter
 
         $this->view('admin/gizi/index', [
-            'pageTitle' => 'Kelola Gizi & Kalori',
-            'activeNav' => 'gizi',
-            'daftar'    => Gizi::cari($q ?: null),
-            'q'         => $q,
+            'pageTitle'     => 'Kelola Gizi & Kalori',
+            'activeNav'     => 'gizi',
+            'daftar'        => Gizi::cari($q ?: null, $kategori ?: null), // 2. Cari dengan filter kategori
+            'kategori'      => Gizi::daftarKategori(),
+            'kategoriAktif' => $kategori,
+            'q'             => $q,
         ], 'admin');
     }
 

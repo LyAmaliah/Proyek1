@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 6000);
     });
 
+        /* ---------- Pindahkan Modal ke <body> agar tidak tertutup backdrop ---------- */
+    document.querySelectorAll('.modal').forEach(function (modal) {
+        document.body.appendChild(modal);
+    });
+
     /* ---------- 2. Konfirmasi hapus data ---------- */
     document.querySelectorAll('form[data-confirm]').forEach(function (form) {
         form.addEventListener('submit', function (e) {

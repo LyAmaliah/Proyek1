@@ -9,13 +9,28 @@
 </div>
 
 <div class="panel-white mb-4">
-    <form action="<?= BASE_URL ?>/admin/gizi" method="get" class="row g-2">
-        <div class="col-md-8">
+    <form action="<?= BASE_URL ?>/admin/gizi" method="get" class="row g-2 align-items-center">
+        <!-- Kolom Pencarian Nama -->
+        <div class="col-md-6">
             <input type="search" class="form-control" name="q" placeholder="Cari nama makanan/minuman…"
                    value="<?= e($q) ?>">
         </div>
-        <div class="col-md-4 d-grid">
-            <button class="btn btn-soft-green fw-semibold"><i class="bi bi-search me-1"></i>Cari</button>
+        <!-- Dropdown Pilihan Kategori (Makanan / Minuman) -->
+        <div class="col-md-4">
+            <select name="kategori" class="form-select">
+                <option value="">— Semua Kategori —</option>
+                <?php foreach ($kategori as $kat): ?>
+                    <option value="<?= e($kat) ?>" <?= ($kategoriAktif ?? '') === $kat ? 'selected' : '' ?>>
+                        <?= e($kat) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <!-- Tombol Filter -->
+        <div class="col-md-2 d-grid">
+            <button class="btn btn-soft-green fw-semibold" type="submit">
+                <i class="bi bi-funnel me-1"></i>Filter
+            </button>
         </div>
     </form>
 </div>

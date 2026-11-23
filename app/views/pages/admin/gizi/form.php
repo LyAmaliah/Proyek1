@@ -84,3 +84,17 @@ $val = fn(string $k, $default = '') => $gizi[$k] ?? ($_POST[$k] ?? $default);
         <a href="<?= BASE_URL ?>/admin/gizi" class="btn btn-outline-secondary">Batal</a>
     </div>
 </form>
+
+<script>
+    const selectKat = document.getElementById('kategori');
+    const inputPorsi = document.getElementById('porsi');
+    if (selectKat && inputPorsi) {
+        selectKat.addEventListener('change', function () {
+            if (this.value === 'Minuman') {
+                inputPorsi.value = '100 ml';
+            } else {
+                inputPorsi.value = '100 gram';
+            }
+        });
+    }
+</script>
