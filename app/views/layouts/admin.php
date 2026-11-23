@@ -61,7 +61,7 @@ $menu = [
                     </a>
                 </li>
             <?php endforeach; ?>
-            <li class="nav-item mt-3">
+            <li class="nav-item mt-1">
                 <a class="nav-link text-danger-soft" href="<?= BASE_URL ?>/auth/logout">
                     <i class="bi bi-box-arrow-right me-2"></i>Keluar
                 </a>

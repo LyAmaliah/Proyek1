@@ -103,27 +103,53 @@
                            class="small text-success mb-2"><i class="bi bi-map me-1"></i>Buka Google Maps</a>
                     <?php endif; ?>
 
-                    <div class="d-flex flex-wrap gap-1 mt-auto pt-2 border-top">
+                    <div class="mt-auto pt-3 border-top">
+                        <!-- Tombol Menu Membentang Penuh ke Samping -->
                         <a href="<?= BASE_URL ?>/admin/tempat/<?= (int) $t['id_tempat'] ?>/menu"
-                           class="btn btn-sm btn-green">
-                            <i class="bi bi-bookmark-check me-1"></i>Menu (<?= count(Menu::byTempat((int) $t['id_tempat'])) ?>)
+                           class="btn btn-sm btn-green w-100 mb-2 py-2 fw-semibold">
+                            <i class="bi bi-bookmark-check me-1"></i>Kelola Menu (<?= count(Menu::byTempat((int) $t['id_tempat'])) ?>)
                         </a>
-                        <a href="<?= BASE_URL ?>/admin/tempat/<?= (int) $t['id_tempat'] ?>/edit"
-                           class="btn btn-sm btn-soft-green"><i class="bi bi-pencil"></i></a>
-                        <form action="<?= BASE_URL ?>/admin/tempat/<?= (int) $t['id_tempat'] ?>/delete"
-                              method="post" class="d-inline"
-                              data-confirm="Hapus tempat '<?= e($t['nama_tempat']) ?>' beserta seluruh menunya?">
-                            <?= csrf_field() ?>
-                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
-                        </form>
-                        <a href="<?= BASE_URL ?>/tempat/<?= (int) $t['id_tempat'] ?>" target="_blank"
-                           class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+                        <!-- Baris Bawah: Tombol Aksi (Lihat, Edit, Hapus) Rata & Sejajar -->
+                        <div class="row g-2 align-items-center">
+                            <!-- 1. LIHAT -->
+                            <div class="col-4">
+                                <a href="<?= BASE_URL ?>/tempat/<?= (int) $t['id_tempat'] ?>" target="_blank"
+                                   class="btn btn-sm btn-outline-secondary w-100 d-flex align-items-center justify-content-center py-1 text-nowrap"
+                                   style="height: 34px; box-shadow: none;" title="Lihat di Web">
+                                    <i class="bi bi-eye me-1"></i>Lihat
+                                </a>
+                            </div>
+
+                            <!-- 2. EDIT -->
+                            <div class="col-4">
+                                <a href="<?= BASE_URL ?>/admin/tempat/<?= (int) $t['id_tempat'] ?>/edit"
+                                   class="btn btn-sm btn-soft-green w-100 d-flex align-items-center justify-content-center py-1 text-nowrap"
+                                   style="height: 34px; box-shadow: none;" title="Edit Tempat">
+                                    <i class="bi bi-pencil me-1"></i>Edit
+                                </a>
+                            </div>
+
+                            <!-- 3. HAPUS -->
+                            <div class="col-4">
+                                <form action="<?= BASE_URL ?>/admin/tempat/<?= (int) $t['id_tempat'] ?>/delete"
+                                      method="post" class="m-0 p-0 w-100"
+                                      data-confirm="Hapus tempat '<?= e($t['nama_tempat']) ?>' beserta seluruh menunya?">
+                                    <?= csrf_field() ?>
+                                    <button type="submit"
+                                            class="btn btn-sm btn-outline-danger w-100 d-flex align-items-center justify-content-center py-1 text-nowrap"
+                                            style="height: 34px; box-shadow: none;" title="Hapus Tempat">
+                                        <i class="bi bi-trash me-1"></i>Hapus
+                                    </button>
+                                </form>
+                            </div>
+                        </div> <!-- /row g-2 -->
+                    </div> <!-- /mt-auto -->
+                </div> <!-- /card-body -->
+            </div> <!-- /card-soft -->
+        </div> <!-- /col-md-6 col-xl-4 (ini yang sebelumnya hilang) -->
     <?php endforeach; ?>
-</div>
+</div> <!-- /row g-4 -->
 
 <!-- ===== Modal Tambah/Edit Kategori Menu ===== -->
 <div class="modal fade" id="modalKategori" tabindex="-1" aria-hidden="true">
