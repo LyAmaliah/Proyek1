@@ -1,76 +1,161 @@
 <?php
-/** @var array $artikel @var array $kategori @var string $q @var int $idKategori */
+/**
+- Kelola Artikel Kesehatan + Kategori Artikel.
+- @var array $artikel @var string $q @var array $kategori
+ */
 ?>
-<div class="container mt-4 mb-5">
-    <!-- Header -->
-    <div class="text-center mb-4">
-        <h1 class="section-title d-inline-block">Artikel Kesehatan</h1>
-        <p class="text-muted mt-2 mb-0">Edukasi &amp; tips gaya hidup sehat pilihan redaksi</p>
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+    <div>
+        <h1 class="h4 mb-0">Kelola Artikel Kesehatan</h1>
     </div>
+    <a href="<?= BASE_URL ?>/admin/artikel/create" class="btn btn-green fw-semibold">
+        <i class="bi bi-plus-lg me-1"></i>Tambah Artikel
+    </a>
+</div>
 
-    <!-- Filter -->
-    <div class="panel-white mb-4">
-        <form action="<?= BASE_URL ?>/artikel" method="get" class="row g-2 align-items-end">
-            <div class="col-md-5">
-                <label for="q" class="form-label small fw-semibold">Cari Artikel</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
-                    <input type="search" class="form-control" id="q" name="q"
-                           placeholder="Judul atau isi artikel…" value="<?= e($q) ?>">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label for="id_kategori" class="form-label small fw-semibold">Kategori</label>
-                <select class="form-select" id="id_kategori" name="id_kategori">
-                    <option value="">— Semua Kategori —</option>
+<!-- ===== Section Kelola Kategori Artikel ===== -->
+<div class="panel-white mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="mb-0"><i class="bi bi-tags me-2 text-success"></i>Kategori Artikel</h6>
+        <button class="btn btn-sm btn-soft-green fw-semibold" data-bs-toggle="modal"
+                data-bs-target="#modalKategori">
+            <i class="bi bi-plus-lg me-1"></i>Tambah Kategori
+        </button>
+    </div>
+    <?php if (!$kategori): ?>
+        <p class="text-muted small mb-0">Belum ada kategori.</p>
+    <?php else: ?>
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr><th>#</th><th>Nama Kategori</th><th class="text-end">Aksi</th></tr>
+                </thead>
+                <tbody>
                     <?php foreach ($kategori as $k): ?>
-                        <option value="<?= (int) $k['id_kategori_artikel'] ?>"
-                            <?= $idKategori === (int) $k['id_kategori_artikel'] ? 'selected' : '' ?>>
-                            <?= e($k['nama_kategori']) ?>
-                        </option>
+                        <tr>
+                            <td><?= (int) $k['id_kategori_artikel'] ?></td>
+                            <td class="fw-semibold"><?= e($k['nama_kategori']) ?></td>
+                            <td class="text-end text-nowrap">
+                                <button class="btn btn-sm btn-soft-green" data-bs-toggle="modal"
+                                        data-bs-target="#modalKategori"
+                                        data-id="<?= (int) $k['id_kategori_artikel'] ?>"
+                                        data-nama="<?= e($k['nama_kategori']) ?>">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <form action="<?= BASE_URL.'/admin/artikel/kategori/'.(int)$k['id_kategori_artikel'].'/delete' ?>"
+                                      method="post" class="d-inline"
+                                      data-confirm="Hapus kategori '<?= e($k['nama_kategori']) ?>'?">
+                                    <?= csrf_field() ?>
+                                    <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="col-md-3 d-grid">
-                <button type="submit" class="btn btn-green fw-semibold">
-                    <i class="bi bi-funnel me-1"></i>Terapkan Filter
-                </button>
-            </div>
-        </form>
-    </div>
+                </tbody>
+            </table>
+        </div>
+    <?php endif; ?>
+</div>
 
-    <!-- Daftar artikel -->
-    <div class="row g-4">
-        <?php if (!$artikel): ?>
-            <div class="col-12">
-                <div class="alert alert-info border-0 shadow-sm text-center py-4 mb-0">
-                    <i class="bi bi-inbox fs-2 d-block mb-2"></i>
-                    Artikel tidak ditemukan. Coba kata kunci lain.
-                </div>
-            </div>
-        <?php endif; ?>
+<!-- ===== Pencarian artikel ===== -->
+<div class="panel-white mb-4">
+    <form action="<?= BASE_URL.'/admin/artikel' ?>" method="get" class="row g-2">
+        <div class="col-md-8">
+            <input type="search" class="form-control" name="q" placeholder="Cari judul atau isi artikel…"
+                   value="<?= e($q) ?>">
+        </div>
+        <div class="col-md-4 d-grid">
+            <button class="btn btn-soft-green fw-semibold"><i class="bi bi-search me-1"></i>Cari</button>
+        </div>
+    </form>
+</div>
 
-        <?php foreach ($artikel as $a): ?>
-            <div class="col-md-6 col-xl-4">
-                <div class="card-soft h-100">
-                    <div class="ratio ratio-article">
-                        <img src="<?= img_url($a['foto_artikel'], 'artikel') ?>"
-                             alt="<?= e($a['judul_artikel']) ?>" class="img-cover" loading="lazy">
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <div class="mb-2 d-flex flex-wrap gap-1">
-                            <span class="tag"><?= e($a['nama_kategori'] ?? 'Umum') ?></span>
-                            <span class="tag gray"><i class="bi bi-calendar3 me-1"></i><?= tanggal_indo($a['tanggal_terbit']) ?></span>
-                        </div>
-                        <h5 class="card-title"><?= e($a['judul_artikel']) ?></h5>
-                        <p class="text-muted small flex-grow-1"><?= e(excerpt($a['isi_artikel'], 130)) ?></p>
-                        <div class="d-flex justify-content-end align-items-center mt-2">
-                            <a href="<?= BASE_URL ?>/artikel/<?= (int) $a['id_artikel'] ?>"
-                               class="btn btn-sm btn-green">Baca <i class="bi bi-arrow-right ms-1"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
+<!-- ===== Daftar artikel ===== -->
+<div class="panel-white">
+    <div class="table-responsive">
+        <table class="table table-custom align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>#</th><th>Foto</th><th>Judul</th><th>Kategori</th><th>Penulis</th><th>Tanggal Terbit</th><th class="text-end">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!$artikel): ?>
+                    <tr><td colspan="7" class="text-center text-muted py-4">Belum ada artikel.</td></tr>
+                <?php endif; ?>
+                <?php foreach ($artikel as $a): ?>
+                    <tr>
+                        <td><?= (int) $a['id_artikel'] ?></td>
+                        <td class="text-nowrap">
+                            <img src="<?= img_url($a['foto_artikel'], 'artikel') ?>" alt=""
+                                 style="width:64px;height:40px;object-fit:cover;border-radius:6px;">
+                        </td>
+                        <td style="min-width:220px;">
+                            <span class="fw-semibold"><?= e($a['judul_artikel']) ?></span><br>
+                            <small class="text-muted"><?= e(excerpt($a['isi_artikel'], 60)) ?></small>
+                        </td>
+                        <td class="text-nowrap"><span class="tag"><?= e($a['nama_kategori'] ?? '-') ?></span></td>
+                        <td class="text-nowrap"><?= e($a['penulis'] ?? '-') ?></td>
+                        <td class="text-nowrap small"><?= tanggal_indo($a['tanggal_terbit']) ?></td>
+                        <td class="text-end text-nowrap">
+                            <a href="<?= BASE_URL.'/artikel/'.(int)$a['id_artikel'] ?>" target="_blank"
+                               class="btn btn-sm btn-outline-secondary" title="Lihat"><i class="bi bi-eye"></i></a>
+                            <a href="<?= BASE_URL.'/admin/artikel/'.(int)$a['id_artikel'].'/edit' ?>"
+                               class="btn btn-sm btn-soft-green" title="Edit"><i class="bi bi-pencil"></i></a>
+                            <form action="<?= BASE_URL.'/admin/artikel/'.(int)$a['id_artikel'].'/delete' ?>"
+                                  method="post" class="d-inline"
+                                  data-confirm="Hapus artikel '<?= e($a['judul_artikel']) ?>'?">
+                                <?= csrf_field() ?>
+                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 </div>
+
+<!-- ===== Modal Tambah/Edit Kategori Artikel ===== -->
+<div class="modal fade" id="modalKategori" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title mb-0" id="modalKategoriTitle">Tambah Kategori Artikel</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+            <form action="<?= BASE_URL.'/admin/artikel/kategori/store' ?>" method="post" id="formKategori">
+                <?= csrf_field() ?>
+                <input type="hidden" name="kategori_id" id="kategoriId" value="">
+                <div class="modal-body">
+                    <div class="mb-0">
+                        <label for="nama_kategori" class="form-label small fw-semibold">Nama Kategori</label>
+                        <input type="text" class="form-control" id="nama_kategori" name="nama_kategori"
+                               minlength="3" required placeholder="mis. Nutrisi Harian">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-green btn-sm fw-semibold">
+                        <i class="bi bi-save me-1"></i>Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('modalKategori').addEventListener('show.bs.modal', function (e) {
+        const btn = e.relatedTarget;
+        const id = btn?.dataset?.id || '';
+        document.getElementById('kategoriId').value = id;
+        document.getElementById('nama_kategori').value = btn?.dataset?.nama || '';
+        document.getElementById('modalKategoriTitle').textContent = id ? 'Edit Kategori Artikel' : 'Tambah Kategori Artikel';
+        document.getElementById('formKategori').action = id
+            ? '<?= BASE_URL.'/admin/artikel/kategori/' ?>' + id + '/update'
+            : '<?= BASE_URL.'/admin/artikel/kategori/store' ?>';
+    });
+</script>

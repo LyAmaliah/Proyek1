@@ -1,8 +1,8 @@
 <?php
 /**
- * Dashboard admin + Laporan Statistik gabungan (FR-07).
- * @var array $rekap @var array $riwayat @var array $perKategori
- * @var array $artikelBaru @var int $totalUlasan @var int $totalGizi
+- Dashboard admin + Laporan Statistik gabungan (FR-07).
+- @var array $rekap @var array $riwayat @var array $perKategori
+- @var array $artikelBaru @var int $totalUlasan @var int $totalGizi
  */
 $kartu = [
     ['label' => 'Total Pengguna',      'num' => $rekap['total_pengguna'], 'icon' => 'bi-people',           'color' => ''],
@@ -86,10 +86,10 @@ $maxKategori = max(array_map(fn($r) => (int) $r['jumlah'], $perKategori ?: [['ju
                         <?php endif; ?>
                         <?php foreach ($artikelBaru as $a): ?>
                             <tr>
-                                <td class="text-truncate" style="max-width:260px;">
+                                <td style="min-width:220px;">
                                     <?= e($a['judul_artikel']) ?>
                                 </td>
-                                <td><span class="tag"><?= e($a['nama_kategori'] ?? '-') ?></span></td>
+                                <td class="text-nowrap"><span class="tag"><?= e($a['nama_kategori'] ?? '-') ?></span></td>
                                 <td class="text-nowrap small"><?= tanggal_indo($a['tanggal_terbit']) ?></td>
                             </tr>
                         <?php endforeach; ?>
