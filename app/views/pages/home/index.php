@@ -15,8 +15,8 @@
                     <?php endif; ?>
                 </span>
                 <h1 class="mb-3">
-                    Wujudkan Hidup Sehat<br>
-                    Bersama <span class="text-accent">HealthyHabit</span>
+                    <span class="text-gradient">Wujudkan Hidup Sehat<br>
+                    Bersama HealthyHabit</span>
                 </h1>
                 <p class="lead mb-4">
                     Pantau kesehatan Anda dengan mudah! Hitung BMI, cek kalori makanan,

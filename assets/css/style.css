@@ -8,19 +8,20 @@
  * ============================================================ */
 
 :root {
-    /* Palet utama */
-    --hijau: #27824B;
-    --hijau-2: #35a15e;
-    --hijau-dark: #1e6a3c;
-    --hijau-deep: #0f3d24;
-    --hijau-muda: #E8F5E9;
+    /* Palet utama yang lebih hidup & segar */
+    --hijau: #1E8E4E;
+    --hijau-2: #2BB664;
+    --hijau-dark: #135E34;
+    --hijau-deep: #0B381F;
+    --hijau-muda: #DFF5E7;
     --putih: #FFFFFF;
-    --oranye: #F5A623;
-    --oranye-soft: #f7b84e;
-    --abu: #F5F5F5;
-    --abu-gelap: #6C757D;
-    --teks: #1f2a24;
-    --teks-lembut: #4d5b57;
+    --oranye: #FF981A;
+    --oranye-soft: #FFB347;
+    --kuning-hangat: #FFD166;
+    --abu: #F4F7F5;
+    --abu-gelap: #5E6E66;
+    --teks: #15241C;
+    --teks-lembut: #42564B;
     --radius: 20px;
     --radius-lg: 28px;
 
@@ -28,18 +29,18 @@
     --font-heading: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
     --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-    /* Glass tokens */
-    --glass-bg: rgba(255, 255, 255, .55);
-    --glass-bg-strong: rgba(255, 255, 255, .76);
-    --glass-bg-dark: rgba(15, 61, 36, .55);
-    --glass-border: rgba(255, 255, 255, .7);
-    --glass-border-dark: rgba(255, 255, 255, .18);
-    --glass-blur: 20px;
-    --glass-shadow: 0 10px 40px rgba(39, 130, 75, .12), 0 2px 6px rgba(39, 130, 75, .05);
-    --glass-inset: inset 0 1px 1px rgba(255, 255, 255, .85), inset 0 -1px 1px rgba(39, 130, 75, .05);
+    /* Glass tokens yang lebih jernih & kontras */
+    --glass-bg: rgba(255, 255, 255, .68);
+    --glass-bg-strong: rgba(255, 255, 255, .86);
+    --glass-bg-dark: rgba(11, 56, 31, .75);
+    --glass-border: rgba(255, 255, 255, .85);
+    --glass-border-dark: rgba(255, 255, 255, .22);
+    --glass-blur: 22px;
+    --glass-shadow: 0 12px 36px rgba(30, 142, 78, .14), 0 3px 8px rgba(30, 142, 78, .06);
+    --glass-inset: inset 0 1px 1px rgba(255, 255, 255, .95), inset 0 -1px 1px rgba(30, 142, 78, .06);
 
-    --shadow: 0 8px 28px rgba(39, 130, 75, .10);
-    --shadow-hover: 0 24px 56px rgba(39, 130, 75, .24), 0 6px 14px rgba(39, 130, 75, .10);
+    --shadow: 0 10px 28px rgba(30, 142, 78, .12);
+    --shadow-hover: 0 18px 42px rgba(30, 142, 78, .20), 0 6px 14px rgba(255, 152, 26, .10);
 
     /* Easing */
     --ease: cubic-bezier(.16, 1, .3, 1);
@@ -60,15 +61,13 @@ body {
     font-size: .97rem;
     line-height: 1.65;
     min-height: 100vh;
-    background-color: #eef6f0;
+    background: linear-gradient(135deg, #DFF2E6 0%, #F4FAF6 50%, #FFF5E2 100%);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     animation: fadeIn .7s ease both;
 }
 
-/* Ambient organic mesh — "breathing aura" sangat lambat */
-/* Ambient organic mesh — ditarik ke atas agar menutupi sampai ujung layar */
 body::before {
     content: "";
     position: fixed;
@@ -76,11 +75,11 @@ body::before {
     z-index: -2;
     pointer-events: none;
     background:
-        radial-gradient(45% 45% at 8% 12%, rgba(53, 161, 94, .34), transparent 72%),
-        radial-gradient(42% 42% at 94% 10%, rgba(245, 166, 35, .28), transparent 72%),
-        radial-gradient(42% 42% at 82% 92%, rgba(39, 130, 75, .20), transparent 70%),
-        radial-gradient(34% 34% at 8% 90%, rgba(245, 166, 35, .15), transparent 70%),
-        radial-gradient(35% 35% at 50% 45%, rgba(232, 245, 233, .85), transparent 80%);
+        radial-gradient(46% 46% at 8% 10%, rgba(43, 182, 100, .42), transparent 70%),
+        radial-gradient(42% 42% at 92% 8%, rgba(255, 152, 26, .34), transparent 70%),
+        radial-gradient(44% 44% at 86% 88%, rgba(30, 142, 78, .26), transparent 72%),
+        radial-gradient(38% 38% at 10% 88%, rgba(255, 179, 71, .24), transparent 72%),
+        radial-gradient(40% 40% at 50% 45%, rgba(223, 245, 231, .9), transparent 80%);
     animation: auraBreath 28s ease-in-out infinite;
     will-change: transform;
 }
@@ -118,6 +117,17 @@ a:hover { text-decoration: none; }
     border-radius: 10px; border: 2px solid transparent; background-clip: padding-box;
 }
 
+/* Jarak aman agar flash message / notifikasi tidak masuk ke bawah fixed navbar */
+body > .container.mt-3,
+body > .container.mt-3,
+.flash-container {
+    padding-top: 7.5rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.1rem !important;
+    position: relative;
+    z-index: 1020;
+}
+
 /* ============ Utility Glass (multi-layer) ============ */
 .glass {
     position: relative; isolation: isolate;
@@ -153,10 +163,24 @@ a:hover { text-decoration: none; }
 }
 
 .text-gradient {
-    background: linear-gradient(90deg, var(--hijau), var(--oranye));
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent; color: transparent;
+    display: block;
+    background: linear-gradient(
+        135deg,
+        var(--hijau-dark) 0%,
+        var(--hijau) 36%,
+        #88B946 64%,
+        var(--oranye) 100%
+    );
+    background-size: 240% 240%;
+    background-position: 0% 0%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: gradientFlow 8s ease-in-out infinite;
+    will-change: background-position;
 }
+
 
 /* ============ Animasi ============ */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -202,6 +226,33 @@ a:hover { text-decoration: none; }
     50%      { opacity: 1; }
 }
 
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+@keyframes titlePopUp {
+    0% {
+        opacity: 0;
+        transform: translateY(16px) scale(0.95);
+    }
+    70% {
+        opacity: 1;
+        transform: translateY(-3px) scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 /* ============ Brand ============ */
 .brand-icon {
     width: 40px; height: 40px;
@@ -217,39 +268,41 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
 .brand-text { color: var(--hijau-dark); font-family: var(--font-heading); font-weight: 700; letter-spacing: -.03em; }
 .text-accent { color: var(--oranye) !important; }
 
-/* ============ Tombol (tactile spring + shimmer + glow) ============ */
+/* ============ Tombol (clean, presisi & rapi) ============ */
 .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
     font-family: var(--font-heading);
-    border-radius: 14px; font-size: .9rem; font-weight: 600; letter-spacing: -.005em;
+    border-radius: 12px; font-size: .9rem; font-weight: 600; letter-spacing: -.005em;
     padding: .62rem 1.35rem;
     position: relative; overflow: hidden; isolation: isolate;
-    transition: transform .45s var(--spring), box-shadow .35s var(--ease), background .3s, color .3s, border-color .3s;
-    will-change: transform;
+    transition: transform .35s var(--ease), box-shadow .3s var(--ease), background .3s, color .3s, border-color .3s;
 }
-.btn:hover { transform: translateY(-2px) scale(1.015); }
-.btn:active { transform: translateY(0) scale(.965); transition-duration: .12s; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); transition-duration: .12s; }
 
 .btn-green::before, .btn-orange::before {
     content: ""; position: absolute; z-index: -1; top: -10%; left: 0; width: 45%; height: 120%;
-    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .45), transparent);
     transform: translateX(-130%) skewX(-22deg); pointer-events: none;
 }
 .btn-green:hover::before, .btn-orange:hover::before { animation: shine .9s var(--ease); }
 .btn-green::after, .btn-orange::after {
-    content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
-    background: linear-gradient(180deg, rgba(255, 255, 255, .28), transparent 55%);
+    display: none;
 }
 
 .btn-green {
-    background: linear-gradient(135deg, var(--hijau-2), var(--hijau) 55%, var(--hijau-dark));
-    border-color: transparent; color: var(--putih);
-    /* Bayangan diperhalus & dirampingkan (tanpa ring luar yang tebal) */
-    box-shadow: 0 4px 14px rgba(39, 130, 75, .22), inset 0 1px 1px rgba(255, 255, 255, .35);
+    background: linear-gradient(135deg, #2EC46D, var(--hijau) 55%, var(--hijau-dark));
+    border-color: transparent;
+    color: var(--putih);
+    box-shadow: 0 6px 18px rgba(30, 142, 78, .28);
 }
 .btn-green:hover, .btn-green:focus {
     background: linear-gradient(135deg, var(--hijau), var(--hijau-dark));
-    border-color: transparent; color: var(--putih);
-    box-shadow: 0 6px 18px rgba(39, 130, 75, .30), inset 0 1px 1px rgba(255, 255, 255, .4);
+    color: var(--putih);
+    box-shadow: 0 8px 22px rgba(30, 142, 78, .38);
 }
 
 .btn-soft-green {
@@ -264,20 +317,20 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
 }
 
 .btn-orange {
-    background: linear-gradient(135deg, var(--oranye-soft), var(--oranye) 60%, #e0930f);
-    border-color: transparent; color: #fff;
-    /* Bayangan oranye dibuat tipis dan pas, menghilangkan efek glow lingkaran besar */
-    box-shadow: 0 4px 14px rgba(245, 166, 35, .25), inset 0 1px 1px rgba(255, 255, 255, .4);
+    background: linear-gradient(135deg, #FFB74D, var(--oranye) 60%, #E67E00);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(255, 152, 26, .32);
 }
 .btn-orange:hover {
-    background: linear-gradient(135deg, var(--oranye), #d98d10);
-    border-color: transparent; color: #fff;
-    box-shadow: 0 6px 18px rgba(245, 166, 35, .35), inset 0 1px 1px rgba(255, 255, 255, .45);
+    background: linear-gradient(135deg, var(--oranye), #D97200);
+    color: #fff;
+    box-shadow: 0 8px 22px rgba(255, 152, 26, .42);
 }
 
 /* ============ Navbar — DARI STYLE (1) (Single-layer glass, anti double) ============ */
 .site-main {
-    padding-top: 7.5rem !important; 
+    padding-top: 5.5rem !important; 
 }
 
 .page-header, .hero-internal, .content-header {
@@ -301,20 +354,20 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
     background-color: transparent !important;
     background-image:
         linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, .75) 50%, transparent 58%),
-        linear-gradient(135deg, rgba(255, 255, 255, .62), rgba(255, 255, 255, .34)) !important;
+        linear-gradient(135deg, rgba(255, 255, 255, .86), rgba(244, 250, 246, .74)) !important;
     background-repeat: no-repeat;
     background-size: 260% 100%, 100% 100%;
     background-position: 160% 0, 0 0;
     animation: none 3.5s linear infinite; 
 
-    -webkit-backdrop-filter: blur(18px) saturate(180%);
-    backdrop-filter: blur(18px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, .82) !important;
+    -webkit-backdrop-filter: blur(32px) saturate(165%) contrast(1.04);
+    backdrop-filter: blur(32px) saturate(165%) contrast(1.04);
+    border: 1px solid rgba(255, 255, 255, .9) !important;
     box-shadow:
-        0 10px 32px rgba(39, 130, 75, .12),
-        0 2px 6px rgba(39, 130, 75, .05),
-        inset 0 1px 1px rgba(255, 255, 255, .95),
-        inset 0 -1px 1px rgba(39, 130, 75, .05) !important;
+        0 10px 32px rgba(39, 130, 75, .14),
+        0 2px 6px rgba(39, 130, 75, .06),
+        inset 0 1px 1px rgba(255, 255, 255, 1),
+        inset 0 -1px 1px rgba(39, 130, 75, .06) !important;
     transition: box-shadow .35s var(--ease), background .35s;
 }
 
@@ -386,7 +439,7 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
 .hero {
     position: relative;
     overflow: visible;
-    padding-top: 7.5rem !important;
+    padding-top: 1.2rem !important;
     padding-bottom: 3rem;
     margin-bottom: 1.5rem;
     background: transparent !important;
@@ -440,12 +493,24 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
 }
 
 /* ============ Kartu & Bagian ============ */
-.section-title { font-size: 1.5rem; font-weight: 700; width: fit-content; letter-spacing: -.03em; }
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    width: fit-content;
+    letter-spacing: -.03em;
+    animation: titlePopUp 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), text-shadow 0.3s ease;
+}
+.section-title:hover,
+.section-title:focus-visible {
+    transform: translateY(-5px) scale(1.04);
+    text-shadow: 0 12px 24px rgba(30, 142, 78, 0.22);
+}
 .section-title::after {
     content: ""; display: block; width: 100%; height: 4px;
     background: linear-gradient(90deg, var(--hijau), var(--oranye));
     border-radius: 4px; margin-top: .5rem;
-    transform-origin: left; animation: growX .9s var(--ease) both;
+    transform-origin: left; animation: growX 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both;
 }
 
 /* ============ Card ============ */
@@ -454,11 +519,12 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
     isolation: isolate;
     overflow: hidden;
     background:
-        linear-gradient(145deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .22)),
+        linear-gradient(145deg, rgba(255, 255, 255, .78), rgba(255, 255, 255, .52)),
         var(--glass-bg);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
     backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    border: 1px solid var(--glass-border);
+   
+    border: 1px solid rgba(255, 255, 255, .92);
     border-radius: var(--radius);
     box-shadow: var(--glass-shadow), var(--glass-inset);
     transition: transform .45s var(--spring), box-shadow .35s var(--ease), border-color .3s var(--ease);
@@ -759,10 +825,7 @@ a:hover > .brand-icon, .brand-icon:hover { transform: rotate(-10deg) scale(1.1);
 .auth-wrap {
     position: relative; overflow: hidden; isolation: isolate;
     min-height: calc(100vh - 64px);
-    background:
-        radial-gradient(700px 300px at 10% 0%, rgba(39, 130, 75, .18), transparent 60%),
-        radial-gradient(700px 300px at 100% 100%, rgba(245, 166, 35, .20), transparent 60%),
-        linear-gradient(135deg, #e3f3e7, #f7fbf8);
+    background: transparent !important;
     display: flex; align-items: center; padding: 2.5rem 0;
 }
 .auth-wrap::before, .auth-wrap::after {
