@@ -46,16 +46,21 @@
             </div>
         <?php endif; ?>
 
-        <?php foreach ($resep as $r): ?>
+                <?php foreach ($resep as $r): ?>
             <div class="col-md-6 col-xl-3">
                 <div class="card-soft h-100 d-flex flex-column">
-                    <div class="ratio ratio-4x3 position-relative">
-                        <img src="<?= img_url($r['foto_resep'], 'resep') ?>"
-                             alt="<?= e($r['judul_resep']) ?>" class="img-cover" loading="lazy">
-                        <span class="badge text-bg-success position-absolute top-0 start-0 m-2">
+                    <!-- Wadah Foto & Badge Kalori Melayang -->
+                    <div class="position-relative">
+                        <div class="ratio ratio-4x3">
+                            <img src="<?= img_url($r['foto_resep'], 'resep') ?>"
+                                 alt="<?= e($r['judul_resep']) ?>" class="img-cover" loading="lazy">
+                        </div>
+                        <!-- Badge kalori kecil melayang di pojok kiri atas -->
+                        <span class="badge text-bg-success position-absolute top-0 start-0 m-2 shadow-sm" style="z-index: 2;">
                             <i class="bi bi-fire me-1"></i><?= (int) $r['total_kalori'] ?> kkal
                         </span>
                     </div>
+
                     <div class="card-body d-flex flex-column flex-grow-1">
                         <div class="mb-2 d-flex flex-wrap gap-1">
                             <span class="tag orange"><i class="bi bi-clock me-1"></i><?= (int) $r['waktu_masak'] ?> menit</span>

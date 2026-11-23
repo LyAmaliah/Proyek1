@@ -737,7 +737,7 @@ a:hover > .brand-icon,
     content: "";
     position: absolute;
     pointer-events: none;
-    z-index: 2;
+    z-index: 4;
     top: -10%;
     left: 0;
     width: 45%;
