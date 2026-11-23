@@ -105,18 +105,17 @@ $adminSesi    = $siapa && $siapa['role'] === 'admin';
     </nav>
 </header>
 
+<main class="site-main">
 <!-- ======================= FLASH MESSAGE ======================= -->
 <?php $flashList = get_flash(); ?>
 <?php if ($flashList): ?>
-    <div class="container mt-3">
+    <div class="container pt-2">
         <?php foreach ($flashList as $f): ?>
-            <div class="alert alert-<?= e($f['type']) ?? 'info' ?> alert-dismissible fade show shadow-sm border-0"
+            <div class="alert alert-<?= e($f['type']) ?? 'info' ?> alert-dismissible fade show shadow-sm border-0 py-2 px-3 mb-2 small"
                  role="alert">
                 <i class="bi bi-info-circle me-1"></i><?= $f['message'] /* sudah escape saat dibuat */ ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+                <button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Tutup"></button>
             </div>
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
-
-<main class="site-main">
