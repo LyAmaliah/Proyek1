@@ -1328,8 +1328,15 @@ a:hover > .brand-icon,
 
 .admin-content {
     flex: 1;
-    animation: fadeUp .7s var(--ease) both;
 }
+
+.modal {
+    z-index: 1060 !important;
+}
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+
 .sidebar-backdrop {
     position: fixed;
     inset: 0;

@@ -39,14 +39,17 @@
                     <li class="mb-2"><a href="<?= BASE_URL ?>/admin/login">Login Admin</a></li>
                 </ul>
             </div>
+
             <div class="col-md-4">
-                <h6 class="fw-semibold mb-3">Tips Hari Ini</h6>
-                <div class="tip-box">
-                    <i class="bi bi-lightbulb-fill text-accent me-2"></i>
-                    Minum minimal 8 gelas air putih setiap hari dan sisipkan 30 menit aktivitas
-                    fisik untuk menjaga metabolisme tubuh tetap sehat.
-                </div>
+            <h6 class="fw-semibold mb-3">Tips Hari Ini</h6>
+            <?php $tipHariIni = Tips::hariIni(); ?>
+            <div class="tip-box">
+                <i class="bi bi-lightbulb-fill text-accent me-2"></i>
+                <strong><?= e($tipHariIni['judul']) ?>:</strong>
+                <?= e($tipHariIni['isi_tips']) ?>
             </div>
+        </div>
+
         </div>
         <hr class="my-3">
         <div class="d-flex justify-content-center align-items-center">

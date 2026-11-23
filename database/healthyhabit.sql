@@ -68,7 +68,7 @@ CREATE TABLE `kalkulator_bmi` (
   PRIMARY KEY (`id_bmi`),
   KEY `fk_bmi_pengguna` (`id_pengguna`),
   CONSTRAINT `fk_bmi_pengguna` FOREIGN KEY (`id_pengguna`) REFERENCES `users` (`id_pengguna`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +77,7 @@ CREATE TABLE `kalkulator_bmi` (
 
 LOCK TABLES `kalkulator_bmi` WRITE;
 /*!40000 ALTER TABLE `kalkulator_bmi` DISABLE KEYS */;
-INSERT INTO `kalkulator_bmi` VALUES (1,1,24,'L',62.50,170.00,21.60,'Normal',2359),(2,2,27,'P',55.00,160.00,21.50,'Normal',1896),(3,3,19,'P',46.00,158.60,18.30,'Kurus',1853),(4,4,29,'P',90.00,100.00,90.00,'Obesitas',1889),(5,4,29,'L',90.00,100.00,90.00,'Obesitas',2147),(6,4,29,'L',90.00,100.00,90.00,'Obesitas',2147);
+INSERT INTO `kalkulator_bmi` VALUES (1,1,24,'L',62.50,170.00,21.60,'Normal',2359),(2,2,27,'P',55.00,160.00,21.50,'Normal',1896),(3,3,19,'P',46.00,158.60,18.30,'Kurus',1853),(4,4,29,'P',90.00,100.00,90.00,'Obesitas',1889),(5,4,29,'L',90.00,100.00,90.00,'Obesitas',2147),(6,4,29,'L',90.00,100.00,90.00,'Obesitas',2147),(7,5,19,'P',49.00,158.00,19.60,'Normal',1893);
 /*!40000 ALTER TABLE `kalkulator_bmi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,6 +307,36 @@ INSERT INTO `tempat_sehat` VALUES (1,4,'RealJuice Healthy Caf+?','Jl. Gatot Subr
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tips_sehat`
+--
+
+DROP TABLE IF EXISTS `tips_sehat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tips_sehat` (
+  `id_tips` int(11) NOT NULL AUTO_INCREMENT,
+  `hari_ke` int(11) NOT NULL,
+  `judul` varchar(100) DEFAULT 'Tips Sehat Hari Ini',
+  `isi_tips` text NOT NULL,
+  `kategori` varchar(50) DEFAULT 'Umum',
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id_tips`),
+  UNIQUE KEY `hari_ke` (`hari_ke`),
+  KEY `idx_hari_ke` (`hari_ke`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tips_sehat`
+--
+
+LOCK TABLES `tips_sehat` WRITE;
+/*!40000 ALTER TABLE `tips_sehat` DISABLE KEYS */;
+INSERT INTO `tips_sehat` VALUES (1,1,'Hidrasi Pagi Hari','Awali hari dengan minum segelas air putih hangat setelah bangun tidur untuk mengaktifkan sistem pencernaan dan metabolisme tubuh.','Nutrisi','2026-11-23 23:25:07'),(2,2,'Sayuran Hijau','Sisipkan porsi sayuran hijau di setiap piring makan siang Anda untuk asupan serat alami, asam folat, dan vitamin esensial.','Nutrisi','2026-11-23 23:25:07'),(3,3,'Aktivitas Jalan Kaki Sehat','Jalan kaki santai selama 20-30 menit sehari dapat memperkuat kesehatan jantung.','Olahraga','2026-11-24 00:06:14'),(4,4,'Batasi Gula Tambahan','Kurangi konsumsi gula tambahan pada minuman manis dan beralihlah ke air mineral atau teh tawar herbal.','Diet Sehat','2026-11-23 23:25:07'),(5,5,'Peregangan di Tempat Kerja','Luangkan waktu 5 menit untuk peregangan otot ringan di sela-sela jam kerja atau belajar untuk mencegah kekakuan leher dan punggung.','Kebugaran','2026-11-23 23:25:07'),(6,6,'Asupan Protein Berkualitas','Penuhi kebutuhan protein harian dari sumber berkualitas seperti dada ayam, ikan, telur, tahu, dan tempe kukus.','Nutrisi','2026-11-23 23:25:07'),(7,7,'Tidur Malam Berkualitas','Tidur malam yang cukup dan berkualitas (7ÔÇô8 jam) adalah kunci utama regenerasi sel tubuh dan kekuatan daya tahan imun.','Istirahat','2026-11-23 23:25:07'),(8,8,'Kurangi Garam & Makanan Olahan','Batasi asupan garam dan kurangi makanan olahan kemasan untuk membantu menjaga tekanan darah tetap dalam batas normal.','Diet Sehat','2026-11-23 23:25:07'),(9,9,'Camilan Sehat','Gantilah camilan berkalori kosong (seperti gorengan berminyak) dengan buah potong segar, kacang almond panggang, atau edamame rebus.','Nutrisi','2026-11-23 23:25:07'),(10,10,'Kunyah Makanan Perlahan','Hindari makan terburu-buru. Kunyah makanan secara perlahan untuk membantu pencernaan menyerap nutrisi dan mencegah makan berlebih.','Pola Makan','2026-11-23 23:25:07'),(11,11,'Target 8 Gelas Air','Cukupi kebutuhan minimal 8 gelas air putih per hari dan biasakan membawa botol minum sendiri saat beraktivitas.','Hidrasi','2026-11-23 23:25:07'),(12,12,'Latihan Kekuatan Otot','Lakukan latihan beban ringan atau kekuatan tubuh (seperti push-up atau squat) 2ÔÇô3 kali seminggu untuk memelihara massa otot.','Olahraga','2026-11-23 23:25:07'),(13,13,'Detoks Layar Sebelum Tidur','Hindari menatap layar gawai (smartphone/laptop) setidaknya 30 menit sebelum tidur agar produksi melatonin alami tidak terganggu.','Istirahat','2026-11-23 23:25:07'),(14,14,'Makan Buah Aneka Warna','Konsumsi buah beraneka warna setiap hari untuk melengkapi berbagai variasi antioksidan dan fitonutrien bagi sel tubuh.','Nutrisi','2026-11-23 23:25:07'),(15,15,'Pilih Kukus & Panggang','Utamakan metode memasak kukus, rebus, atau panggang dibandingkan menggoreng dalam minyak banyak untuk mengurangi lemak jenuh.','Pola Makan','2026-11-23 23:25:07'),(16,16,'Perhatikan Postur Duduk','Jaga postur tubuh yang ergonomis saat duduk bekerja dengan memastikan punggung tegak dan pandangan sejajar dengan layar.','Kebugaran','2026-11-23 23:25:07'),(17,17,'Pantau Berat Badan & BMI','Rutin timbang berat badan dan hitung skor BMI Anda secara berkala untuk memantau perkembangan kesehatan jangka panjang.','Kebugaran','2026-11-23 23:25:07'),(18,18,'Jaga Kesehatan Saluran Cerna','Konsumsi makanan probiotik alami seperti tempe, yogurt tawar, atau kefir untuk memelihara populasi bakteri baik di usus.','Pencernaan','2026-11-23 23:25:07'),(19,19,'Sinar Matahari Pagi','Luangkan waktu 10ÔÇô15 menit untuk menikmati sinar matahari pagi demi membantu tubuh mensintesis vitamin D secara optimal.','Kebugaran','2026-11-23 23:25:07'),(20,20,'Pilih Karbohidrat Kompleks','Gantikan karbohidrat sederhana dengan karbohidrat kompleks seperti nasi merah, ubi jalar, atau oatmeal agar kenyang bertahan lama.','Diet Sehat','2026-11-23 23:25:07'),(21,21,'Latihan Pernapasan & Relaksasi','Tarik napas dalam secara perlahan selama beberapa menit saat merasa lelah untuk meredakan ketegangan dan stres pikiran.','Mental','2026-11-23 23:25:07'),(22,22,'Sarapan Seimbang','Awali hari dengan sarapan bergizi seimbang yang menggabungkan serat dan protein agar energi Anda stabil sepanjang hari.','Pola Makan','2026-11-23 23:25:07'),(23,23,'Kalsium untuk Tulang Kuat','Penuhi asupan kalsium dari susu rendah lemak, sayuran hijau tua, atau tahu kedelai untuk menjaga kepadatan tulang dan gigi.','Nutrisi','2026-11-23 23:25:07'),(24,24,'Kebersihan Tangan','Biasakan mencuci tangan dengan sabun dan air mengalir sebelum makan serta setelah beraktivitas di ruang publik.','Higienis','2026-11-23 23:25:07'),(25,25,'Hindari Duduk Terlalu Lama','Bangkit dan berjalanlah sebentar setiap 60 menit jika Anda harus duduk bekerja seharian untuk melancarkan sirkulasi darah.','Kebugaran','2026-11-23 23:25:07'),(26,26,'Batasi Kafein di Sore Hari','Hindari konsumsi kopi atau minuman berkafein tinggi setelah pukul 15.00 agar tidak mengganggu pola tidur malam Anda.','Istirahat','2026-11-23 23:25:07'),(27,27,'Konsumsi Lemak Sehat','Penuhi asupan asam lemak omega-3 dari ikan kembung, salmon, atau alpukat untuk mendukung fungsi otak dan kesehatan jantung.','Nutrisi','2026-11-23 23:25:07'),(28,28,'Istirahatkan Mata (Aturan 20-20-20)','Setiap 20 menit menatap layar komputer, pandanglah objek sejauh 20 kaki (6 meter) selama 20 detik untuk mencegah mata lelah.','Kebugaran','2026-11-23 23:25:07'),(29,29,'Jaga Hubungan Sosial Positif','Luangkan waktu berbincang hangat dengan keluarga atau sahabat karena hubungan sosial yang baik terbukti memperpanjang usia.','Mental','2026-11-23 23:25:07'),(30,30,'Dengarkan Sinyal Tubuh','Kenali rasa lapar fisik yang sebenarnya, nikmati setiap gigitan makanan, dan berhentilah makan sebelum merasa terlalu kenyang.','Pola Makan','2026-11-23 23:25:07'),(31,31,'Apresiasi Kebiasaan Sehat Anda','Rayakan setiap kemajuan kecil dalam gaya hidup sehat yang telah Anda bangun bulan ini, dan jaga konsistensinya untuk hari esok!','Motivasi','2026-11-23 23:25:07');
+/*!40000 ALTER TABLE `tips_sehat` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ulasan_rating`
 --
 
@@ -325,7 +355,7 @@ CREATE TABLE `ulasan_rating` (
   KEY `fk_ulasan_tempat` (`id_tempat`),
   CONSTRAINT `fk_ulasan_pengguna` FOREIGN KEY (`id_pengguna`) REFERENCES `users` (`id_pengguna`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_ulasan_tempat` FOREIGN KEY (`id_tempat`) REFERENCES `tempat_sehat` (`id_tempat`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -334,7 +364,7 @@ CREATE TABLE `ulasan_rating` (
 
 LOCK TABLES `ulasan_rating` WRITE;
 /*!40000 ALTER TABLE `ulasan_rating` DISABLE KEYS */;
-INSERT INTO `ulasan_rating` VALUES (1,1,1,5,'Jusnya segar tanpa gula tambahan, tempatnya bersih dan nyaman. Recommended!','2026-03-10 10:15:00'),(2,2,1,4,'Menu grilled chicken bowl-nya enak dan porsinya pas. Harga masih terjangkau.','2026-03-12 19:40:00'),(3,1,2,5,'Konsep build-your-own salad-nya menarik, informasi gizi tiap menu jelas.','2026-03-18 12:05:00');
+INSERT INTO `ulasan_rating` VALUES (1,1,1,5,'Jusnya segar tanpa gula tambahan, tempatnya bersih dan nyaman. Recommended!','2026-03-10 10:15:00'),(2,2,1,4,'Menu grilled chicken bowl-nya enak dan porsinya pas. Harga masih terjangkau.','2026-03-12 19:40:00'),(3,1,2,5,'Konsep build-your-own salad-nya menarik, informasi gizi tiap menu jelas.','2026-03-18 12:05:00'),(4,5,1,5,'makanannya enak','2026-11-23 22:49:44');
 /*!40000 ALTER TABLE `ulasan_rating` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,7 +388,7 @@ CREATE TABLE `users` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_pengguna`),
   UNIQUE KEY `uq_pengguna_username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -367,7 +397,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'andi_sehat','$2y$10$HdlM0uEE6ZXs1Aqk0yuZTO4id4xz2unxPUd90TuA/1YS/48.Y2x/W','Andi Pratama','user',62.50,170.00,'L',24,'2026-01-15 09:20:00'),(2,'sari_dewi','$2y$10$HdlM0uEE6ZXs1Aqk0yuZTO4id4xz2unxPUd90TuA/1YS/48.Y2x/W','Sari Dewi','user',55.00,160.00,'P',27,'2026-02-02 14:05:00'),(3,'adorelya','$2y$10$y2le4teCXtEnFFqj2iKb7uAiCYTW9lR8Oe1aG7fbNV0761l4CBo5u','eyi','user',46.00,158.60,'P',19,'2026-10-17 09:47:55'),(4,'admin','$2y$10$eU3P1ieECi3zYzD7G9KVFOMt9GCZjrSqnxZp043c5DOwXJhIr4FYi','Administrator','admin',90.00,100.00,'L',29,'2026-10-18 09:18:19');
+INSERT INTO `users` VALUES (1,'andi_sehat','$2y$10$HdlM0uEE6ZXs1Aqk0yuZTO4id4xz2unxPUd90TuA/1YS/48.Y2x/W','Andi Pratama','user',62.50,170.00,'L',24,'2026-01-15 09:20:00'),(2,'sari_dewi','$2y$10$HdlM0uEE6ZXs1Aqk0yuZTO4id4xz2unxPUd90TuA/1YS/48.Y2x/W','Sari Dewi','user',55.00,160.00,'P',27,'2026-02-02 14:05:00'),(3,'adorelya','$2y$10$y2le4teCXtEnFFqj2iKb7uAiCYTW9lR8Oe1aG7fbNV0761l4CBo5u','eyi','user',46.00,158.60,'P',19,'2026-10-17 09:47:55'),(4,'admin','$2y$10$eU3P1ieECi3zYzD7G9KVFOMt9GCZjrSqnxZp043c5DOwXJhIr4FYi','Administrator','admin',90.00,100.00,'L',29,'2026-10-18 09:18:19'),(5,'riri','$2y$10$g7PxmVZCyz.dNvxVEsiQQe5a7xn3OuJHnv9K3xB0/pJ1zgeH6NxAO','risma','user',49.00,158.00,'P',19,'2026-11-23 22:44:39');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -380,4 +410,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-23 22:37:24
+-- Dump completed on 2026-11-24  0:13:33

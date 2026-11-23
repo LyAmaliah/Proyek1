@@ -6,12 +6,13 @@
 Auth::requireAdmin();
 $aktif = $activeNav ?? '';
 $menu = [
-    'dashboard' => ['label' => 'Dashboard',   'icon' => 'bi-speedometer2', 'url' => '/admin'],
-    'artikel'   => ['label' => 'Artikel',     'icon' => 'bi-newspaper',    'url' => '/admin/artikel'],
-    'gizi'      => ['label' => 'Gizi & Kalori', 'icon' => 'bi-egg-fried',  'url' => '/admin/gizi'],
-    'resep'     => ['label' => 'Resep',       'icon' => 'bi-journal-richtext', 'url' => '/admin/resep'],
-    'tempat'    => ['label' => 'Tempat & Menu', 'icon' => 'bi-shop',       'url' => '/admin/tempat'],
-    'pengguna'  => ['label' => 'Pengguna',    'icon' => 'bi-people',       'url' => '/admin/pengguna'],
+    'dashboard' => ['label' => 'Dashboard',     'icon' => 'bi-speedometer2',        'url' => '/admin'],
+    'artikel'   => ['label' => 'Artikel',       'icon' => 'bi-newspaper',           'url' => '/admin/artikel'],
+    'gizi'      => ['label' => 'Gizi & Kalori', 'icon' => 'bi-egg-fried',           'url' => '/admin/gizi'],
+    'resep'     => ['label' => 'Resep',         'icon' => 'bi-journal-richtext',    'url' => '/admin/resep'],
+    'tempat'    => ['label' => 'Tempat & Menu', 'icon' => 'bi-shop',                'url' => '/admin/tempat'],
+    'tips'      => ['label' => 'Tips Harian',   'icon' => 'bi-lightbulb',           'url' => '/admin/tips'],
+    'pengguna'  => ['label' => 'Pengguna',      'icon' => 'bi-people',              'url' => '/admin/pengguna'],
 ];
 ?>
 <!doctype html>

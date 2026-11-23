@@ -96,3 +96,7 @@ $router->post('/admin/pengguna/{id:\d+}/delete', ['AdminPenggunaController', 'de
 
 /* --- Cetak laporan (FR-07) --- */
 $router->get('/admin/cetak', ['AdminLaporanController', 'cetak']);
+
+/* --- Kelola tips harian --- */
+$router->get('/admin/tips', ['AdminTipsController', 'index']);
+$router->post('/admin/tips/{id:\d+}/edit', ['AdminTipsController', 'update']);
