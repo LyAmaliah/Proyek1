@@ -7,18 +7,25 @@
             <article class="panel-white">
                 <div class="d-flex flex-wrap gap-2 mb-3">
                     <span class="tag"><?= e($artikel['nama_kategori'] ?? 'Umum') ?></span>
-                    <span class="tag orange"><i class="bi bi-calendar-event me-1"></i><?= tanggal_indo($artikel['tanggal_terbit']) ?></span>
+                    <span class="tag orange"><i
+                            class="bi bi-calendar-event me-1"></i><?= tanggal_indo($artikel['tanggal_terbit']) ?></span>
                 </div>
 
                 <h1 class="h2 mb-3"><?= e($artikel['judul_artikel']) ?></h1>
 
                 <div class="ratio ratio-article rounded-3 overflow-hidden mb-4">
                     <img src="<?= img_url($artikel['foto_artikel'], 'artikel') ?>"
-                         alt="<?= e($artikel['judul_artikel']) ?>" class="img-cover">
+                        alt="<?= e($artikel['judul_artikel']) ?>" class="img-cover">
                 </div>
 
-                <div class="article-body">
-                    <?= nl2br(e($artikel['isi_artikel'])) ?>
+                <?php
+                $isi = $artikel['isi_artikel'] ?? '';
+                // Hapus tag <script> saja agar aman, lalu biarkan tag format teks dirender
+                $isi = preg_replace('/<script\b[^>]*>.*?<\/script>/is', '', $isi);
+                $isi = strip_tags($isi, '<p><br><h2><h3><strong><b><em><i><u><ul><ol><li><a>');
+                ?>
+                <div class="article-body artikel-content">
+                    <?= $isi ?>
                 </div>
 
                 <hr>
@@ -36,11 +43,9 @@
                 <div class="panel-white mb-4">
                     <h5 class="section-title mb-3" style="font-size:1.05rem;">Artikel Terkait</h5>
                     <?php foreach ($terkait as $t): ?>
-                        <a href="<?= BASE_URL ?>/artikel/<?= (int) $t['id_artikel'] ?>"
-                           class="d-flex gap-3 mb-3 text-reset">
+                        <a href="<?= BASE_URL ?>/artikel/<?= (int) $t['id_artikel'] ?>" class="d-flex gap-3 mb-3 text-reset">
                             <div style="width:86px;height:64px;flex:0 0 86px;border-radius:10px;overflow:hidden;">
-                                <img src="<?= img_url($t['foto_artikel'], 'artikel') ?>"
-                                     alt="" class="img-cover">
+                                <img src="<?= img_url($t['foto_artikel'], 'artikel') ?>" alt="" class="img-cover">
                             </div>
                             <div class="lh-sm">
                                 <small class="d-block fw-semibold"><?= e(excerpt($t['judul_artikel'], 55)) ?></small>
