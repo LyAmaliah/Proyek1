@@ -134,8 +134,20 @@ $isiAwal = $artikel['isi_artikel'] ?? ($_POST['isi_artikel'] ?? '');
     });
 
     // Isi data lama saat mode Edit
-    quill.root.innerHTML = <?= json_encode($artikel['isi_artikel'] ?? ($_POST['isi_artikel'] ?? '')) ?>;
-
+    const initialData = <?= json_encode($artikel['isi_artikel'] ?? ($_POST['isi_artikel'] ?? '')) ?>;
+    if (initialData) {
+        if (/<[a-z][\s\S]*>/i.test(initialData)) {
+            quill.root.innerHTML = initialData;
+        } else {
+            const paragraphs = initialData
+                .split(/\r?\n/)
+                .map(line => line.trim())
+                .filter(line => line.length > 0)
+                .map(line => `<p>${line.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>`)
+                .join('');
+            quill.root.innerHTML = paragraphs;
+        }
+    }
     // Pindahkan isi editor ke input hidden saat form dikirim
     document.getElementById('formArtikel').addEventListener('submit', function () {
         document.getElementById('isi_artikel').value = quill.root.innerHTML;

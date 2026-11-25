@@ -4,7 +4,7 @@
 <div class="container mt-4 mb-5">
     <div class="text-center mb-4">
         <h1 class="section-title d-inline-block">Artikel Kesehatan</h1>
-        <p class="text-muted mt-2 mb-0">Edukasi &amp; tips gaya hidup sehat pilihan redaksi</p>
+        <p class="text-muted mt-2 mb-0">Edukasi &amp; tips gaya hidup sehat</p>
     </div>
 
     <!-- Filter -->
