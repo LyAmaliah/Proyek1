@@ -150,11 +150,6 @@ $user = Auth::user();
                         <a href="<?= BASE_URL ?>/auth/login" class="fw-semibold text-success">Login</a>
                         terlebih dahulu untuk mengirim ulasan.
                     </div>
-                <?php elseif ($sudahUlas): ?>
-                    <div class="alert alert-light border mb-0">
-                        <i class="bi bi-check-circle me-1 text-success"></i>
-                        Anda sudah mengulas tempat ini. Terima kasih atas opininya!
-                    </div>
                 <?php else: ?>
                     <form action="<?= BASE_URL ?>/tempat/<?= (int) $tempat['id_tempat'] ?>/ulasan"
                           method="post">
