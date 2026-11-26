@@ -64,10 +64,6 @@ class TempatController extends Controller
             set_flash('danger', 'Tulis ulasan minimal 5 karakter.');
             $this->redirect(BASE_URL . '/tempat/' . $tempat['id_tempat']);
         }
-        if (Ulasan::sudahMengulas((int) $idPengguna, (int) $tempat['id_tempat'])) {
-            set_flash('warning', 'Anda sudah memberikan ulasan untuk tempat ini.');
-            $this->redirect(BASE_URL . '/tempat/' . $tempat['id_tempat']);
-        }
 
         Ulasan::insert([
             'id_pengguna'   => $idPengguna,
