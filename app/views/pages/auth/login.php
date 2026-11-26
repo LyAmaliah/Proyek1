@@ -5,16 +5,14 @@
 
                 <div class="auth-card">
                     <div class="text-center mb-4">
-                        <span class="brand-icon mx-auto mb-2" style="width:52px;height:52px;font-size:1.5rem;">
-                            <i class="bi bi-heart-pulse-fill"></i>
-                        </span>
+                        <img src="<?= BASE_URL ?>/uploads/logo/logo_healthyhabit.png" alt="Logo HealthyHabit" width="52"
+                            height="52" class="d-inline-block mb-2" style="object-fit: contain;">
                         <h2 class="h4 mb-1">Masuk Ke HealthyHabit</h2>
                         <p class="text-muted small mb-0">
                             Belum punya akun?
                             <a href="<?= BASE_URL ?>/auth/register" class="fw-semibold">Daftar gratis</a>
                         </p>
                     </div>
-
                     <form action="<?= BASE_URL ?>/auth/login" method="post" autocomplete="off">
                         <?= csrf_field() ?>
 
@@ -23,8 +21,8 @@
                             <div class="input-group">
                                 <span class="input-group-text bg-white"><i class="bi bi-person"></i></span>
                                 <input type="text" class="form-control" id="username" name="username"
-                                       placeholder="Masukkan username" value="<?= e($_POST['username'] ?? '') ?>"
-                                       required autofocus>
+                                    placeholder="Masukkan username" value="<?= e($_POST['username'] ?? '') ?>" required
+                                    autofocus>
                             </div>
                         </div>
 
@@ -33,9 +31,9 @@
                             <div class="input-group">
                                 <span class="input-group-text bg-white"><i class="bi bi-lock"></i></span>
                                 <input type="password" class="form-control" id="password" name="password"
-                                       placeholder="••••••••" required>
+                                    placeholder="••••••••" required>
                                 <button class="input-group-text bg-white" type="button" id="togglePassword"
-                                        aria-label="Tampilkan password"><i class="bi bi-eye"></i></button>
+                                    aria-label="Tampilkan password"><i class="bi bi-eye"></i></button>
                             </div>
                         </div>
 

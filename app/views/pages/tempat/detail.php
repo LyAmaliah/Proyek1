@@ -1,8 +1,8 @@
 <?php
 /**
- * Detail tempat + menu + ulasan & rating — FR-13.
- * @var array $tempat @var array $menu @var array $ulasan @var array $sebaran
- * @var float|null $rataRata @var int $totalUlasan @var bool $sudahUlas
+- Detail tempat + menu + ulasan & rating — FR-13.
+- @var array $tempat @var array $menu @var array $ulasan @var array $sebaran
+- @var float|null $rataRata @var int $totalUlasan @var bool $sudahUlas
  */
 if (!function_exists('bintang_tampil')) {
     function bintang_tampil($rating): string
@@ -27,7 +27,7 @@ $user = Auth::user();
             <div class="col-lg-5">
                 <div class="ratio ratio-16x10 h-100">
                     <img src="<?= img_url($tempat['foto_tempat'], 'tempat') ?>"
-                         alt="<?= e($tempat['nama_tempat']) ?>" class="img-cover">
+                        alt="<?= e($tempat['nama_tempat']) ?>" class="img-cover">
                 </div>
             </div>
             <div class="col-lg-7 p-4">
@@ -49,25 +49,25 @@ $user = Auth::user();
                 <div class="d-flex gap-2 flex-wrap">
                     <?php if ($tempat['link_instagram']): ?>
                         <a href="<?= e($tempat['link_instagram']) ?>" target="_blank" rel="noopener"
-                           class="btn btn-outline-success btn-sm">
+                        class="btn btn-outline-success btn-sm">
                             <i class="bi bi-instagram me-1"></i>Instagram
                         </a>
                     <?php endif; ?>
                     <?php if ($tempat['link_grabfood']): ?>
                         <a href="<?= e($tempat['link_grabfood']) ?>" target="_blank" rel="noopener"
-                           class="btn btn-success btn-sm">
+                        class="btn btn-success btn-sm">
                             <i class="bi bi-bag-fill me-1"></i>GrabFood
                         </a>
                     <?php endif; ?>
                     <?php if ($tempat['link_shopeefood']): ?>
                         <a href="<?= e($tempat['link_shopeefood']) ?>" target="_blank" rel="noopener"
-                           class="btn btn-orange btn-sm">
+                        class="btn btn-orange btn-sm">
                             <i class="bi bi-bag-fill me-1"></i>ShopeeFood
                         </a>
                     <?php endif; ?>
                     <?php if ($tempat['link_maps']): ?>
                         <a href="<?= e($tempat['link_maps']) ?>" target="_blank" rel="noopener"
-                           class="btn btn-green fw-semibold btn-sm">
+                        class="btn btn-green fw-semibold btn-sm">
                             <i class="bi bi-geo-alt me-1"></i>Buka di Google Maps
                         </a>
                     <?php endif; ?>
@@ -106,10 +106,23 @@ $user = Auth::user();
                             <div class="row g-3">
                                 <?php foreach ($items as $m): ?>
                                     <div class="col-md-6">
-                                        <div class="card-soft h-100">
+                                        <div class="card-soft h-100 menu-card-trigger"
+                                            role="button"
+                                            tabindex="0"
+                                            style="cursor: pointer;"
+                                            data-nama="<?= e($m['nama_menu']) ?>"
+                                            data-kategori="<?= e($m['nama_kategori'] ?? $kategori) ?>"
+                                            data-harga="<?= e(rupiah($m['harga'])) ?>"
+                                            data-deskripsi="<?= e($m['deskripsi'] ?? '') ?>"
+                                            data-gambar="<?= e(img_url($m['foto_menu'], 'menu')) ?>"
+                                            data-kalori="<?= (float) $m['kalori'] > 0 ? e(number_format((float) $m['kalori'], 1) . ' kkal') : '-' ?>"
+                                            data-protein="<?= e(number_format((float) $m['protein'], 1)) ?>g"
+                                            data-karbohidrat="<?= e(number_format((float) $m['karbohidrat'], 1)) ?>g"
+                                            data-lemak="<?= e(number_format((float) $m['lemak'], 1)) ?>g"
+                                            data-waktu="<?= !empty($m['estimasi_waktu']) ? e((int) $m['estimasi_waktu'] . ' mnt') : '-' ?>">
                                             <div class="ratio ratio-16x9">
                                                 <img src="<?= img_url($m['foto_menu'], 'menu') ?>"
-                                                     alt="<?= e($m['nama_menu']) ?>" class="img-cover" loading="lazy">
+                                                    alt="<?= e($m['nama_menu']) ?>" class="img-cover" loading="lazy">
                                             </div>
                                             <div class="card-body py-2">
                                                 <div class="d-flex justify-content-between align-items-start gap-2">
@@ -117,7 +130,7 @@ $user = Auth::user();
                                                     <span class="tag orange text-nowrap"><?= rupiah($m['harga']) ?></span>
                                                 </div>
                                                 <p class="text-muted small mb-2"><?= e(excerpt($m['deskripsi'], 70)) ?></p>
-                                                <div class="d-flex flex-wrap gap-1">
+                                                <div class="d-flex flex-wrap gap-1 small">
                                                     <?php if ((float) $m['kalori'] > 0): ?>
                                                         <span class="tag orange"><i class="bi bi-fire me-1"></i><?= number_format((float) $m['kalori'], 1) ?> kkal</span>
                                                     <?php endif; ?>
@@ -152,19 +165,19 @@ $user = Auth::user();
                     </div>
                 <?php else: ?>
                     <form action="<?= BASE_URL ?>/tempat/<?= (int) $tempat['id_tempat'] ?>/ulasan"
-                          method="post">
+                        method="post">
                         <?= csrf_field() ?>
 
                         <div class="mb-3">
                             <label class="form-label small fw-semibold d-block">Rating Anda</label>
                             <?php for ($i = 5; $i >= 1; $i--): ?>
                                 <input class="rating-input" type="radio" name="rating"
-                                       id="rating<?= $i ?>" value="<?= $i ?>" <?= $i === 5 ? 'checked' : '' ?>>
+                                    id="rating<?= $i ?>" value="<?= $i ?>" <?= $i === 5 ? 'checked' : '' ?>>
                             <?php endfor; ?>
                             <span class="d-inline-flex">
                                 <?php for ($i = 1; $i <= 5; $i++): ?>
                                     <label class="rating-label <?= $i === 1 ? 'active' : '' ?>"
-                                           for="rating<?= $i ?>" data-value="<?= $i ?>" title="<?= $i ?> bintang">
+                                        for="rating<?= $i ?>" data-value="<?= $i ?>" title="<?= $i ?> bintang">
                                         <i class="bi bi-star-fill"></i>
                                     </label>
                                 <?php endfor; ?>
@@ -174,8 +187,8 @@ $user = Auth::user();
                         <div class="mb-3">
                             <label for="komentar" class="form-label small fw-semibold">Komentar</label>
                             <textarea class="form-control" id="komentar" name="komentar" rows="3"
-                                      minlength="5" maxlength="500" required
-                                      placeholder="Ceritakan pengalamanmu di sini…"></textarea>
+                                    minlength="5" maxlength="500" required
+                                    placeholder="Ceritakan pengalamanmu di sini…"></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-green fw-semibold">
@@ -237,3 +250,90 @@ $user = Auth::user();
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalDetailMenu" tabindex="-1" aria-labelledby="modalDetailMenuLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header">
+                <div>
+                    <small id="detailMenuKategori" class="text-success fw-semibold d-block"></small>
+                    <h5 class="modal-title fw-bold" id="modalDetailMenuLabel">Detail Menu</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-6 text-center bg-light rounded p-3">
+                        <img id="detailMenuGambar" src="" alt="" class="img-fluid rounded" style="max-height: 320px; width: auto; object-fit: contain;">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                            <h4 id="detailMenuNama" class="fw-bold mb-0"></h4>
+                            <span id="detailMenuHarga" class="badge bg-warning text-dark fs-6 text-nowrap"></span>
+                        </div>
+
+                        <p id="detailMenuDeskripsi" class="text-muted small mb-3" style="white-space: pre-line;"></p>
+
+                        <div class="d-flex flex-wrap gap-2 small">
+                            <span class="badge bg-success-subtle text-success border">
+                                <i class="bi bi-fire me-1"></i><span id="detailMenuKalori"></span>
+                            </span>
+                            <span class="badge bg-light text-dark border">P: <span id="detailMenuProtein"></span></span>
+                            <span class="badge bg-light text-dark border">K: <span id="detailMenuKarbohidrat"></span></span>
+                            <span class="badge bg-light text-dark border">L: <span id="detailMenuLemak"></span></span>
+                            <span class="badge bg-light text-secondary border">
+                                <i class="bi bi-clock me-1"></i><span id="detailMenuWaktu"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const modalEl = document.getElementById('modalDetailMenu');
+    if (!modalEl) return;
+
+    function isiModalDariTrigger(trigger) {
+        if (!trigger) return;
+
+        const nama = trigger.getAttribute('data-nama') || 'Detail Menu';
+        const gambar = trigger.getAttribute('data-gambar') || '';
+        const imgEl = document.getElementById('detailMenuGambar');
+
+        document.getElementById('detailMenuKategori').textContent = trigger.getAttribute('data-kategori') || '';
+        document.getElementById('modalDetailMenuLabel').textContent = nama;
+        document.getElementById('detailMenuNama').textContent = nama;
+        document.getElementById('detailMenuHarga').textContent = trigger.getAttribute('data-harga') || '';
+        document.getElementById('detailMenuDeskripsi').textContent = trigger.getAttribute('data-deskripsi') || 'Tidak ada deskripsi tambahan untuk menu ini.';
+        document.getElementById('detailMenuKalori').textContent = trigger.getAttribute('data-kalori') || '-';
+        document.getElementById('detailMenuProtein').textContent = trigger.getAttribute('data-protein') || '0.0g';
+        document.getElementById('detailMenuKarbohidrat').textContent = trigger.getAttribute('data-karbohidrat') || '0.0g';
+        document.getElementById('detailMenuLemak').textContent = trigger.getAttribute('data-lemak') || '0.0g';
+        document.getElementById('detailMenuWaktu').textContent = trigger.getAttribute('data-waktu') || '-';
+
+        imgEl.src = gambar;
+        imgEl.alt = nama;
+    }
+
+    document.querySelectorAll('.menu-card-trigger').forEach(function (card) {
+        card.addEventListener('click', function () {
+            isiModalDariTrigger(this);
+            if (window.bootstrap && typeof window.bootstrap.Modal === 'function') {
+                const instance = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+                instance.show();
+            }
+        });
+
+        card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+});
+</script>

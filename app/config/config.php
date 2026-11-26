@@ -6,7 +6,7 @@
 /* ---------------- URL & Path ---------------- */
 
 // Deteksi base URL otomatis (mendukung deployment di root atau subfolder htdocs)
-$scriptDir   = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/'));
+$scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/'));
 define('BASE_URL', rtrim($scriptDir, '/')); // '' jika di root, '/healthyhabit' jika di subfolder
 
 define('ROOT_PATH', dirname(__DIR__, 2));   // root proyek

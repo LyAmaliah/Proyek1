@@ -18,7 +18,7 @@ if (!function_exists('bintang_tampil')) {
     <div class="text-center mb-4">
         <h1 class="section-title d-inline-block">Rekomendasi Tempat Sehat</h1>
         <p class="text-muted mt-2 mb-0">
-            Temukan tempat makan dan kafe sehat terbaik dengan beragam menu bernutrisi di sekitar Anda.
+            Temukan tempat makan dan kafe sehat terbaik dengan beragam menu bernutrisi di sekitar Anda
         </p>
     </div>
 
@@ -53,11 +53,13 @@ if (!function_exists('bintang_tampil')) {
             <div class="col-md-6 col-xl-4">
                 <div class="card-soft h-100">
                     <div class="ratio ratio-article">
-                        <img src="<?= img_url($t['foto_tempat'], 'tempat') ?>"
-                            alt="<?= e($t['nama_tempat']) ?>" class="img-cover" loading="lazy">
-                            <span class="position-absolute top-0 end-0 m-2 text-white fw-bold small" style="z-index: 10; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.8);">
-                                <i class="bi bi-star-fill text-warning me-1"></i><?= $t['rating_rata'] !== null ? e($t['rating_rata']) : '-' ?>
-                            </span>                    
+                        <img src="<?= img_url($t['foto_tempat'], 'tempat') ?>" alt="<?= e($t['nama_tempat']) ?>"
+                            class="img-cover" loading="lazy">
+                        <span class="position-absolute top-0 end-0 m-2 text-white fw-bold small"
+                            style="z-index: 10; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.8);">
+                            <i
+                                class="bi bi-star-fill text-warning me-1"></i><?= $t['rating_rata'] !== null ? e($t['rating_rata']) : '-' ?>
+                        </span>
                     </div>
                     <div class="card-body d-flex flex-column">
                         <div class="mb-1">
@@ -70,7 +72,7 @@ if (!function_exists('bintang_tampil')) {
                         </p>
                         <p class="text-muted small flex-grow-1"><?= e(excerpt($t['deskripsi'], 80)) ?></p>
                         <a href="<?= BASE_URL ?>/tempat/<?= (int) $t['id_tempat'] ?>"
-                        class="btn btn-sm btn-green align-self-start">
+                            class="btn btn-sm btn-green align-self-start">
                             Lihat Detail &amp; Menu <i class="bi bi-arrow-right ms-1"></i>
                         </a>
                     </div>

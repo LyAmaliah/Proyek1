@@ -4,7 +4,8 @@
 <div class="container mt-4 mb-5">
     <div class="text-center mb-4">
         <h1 class="section-title d-inline-block">Resep Sehat</h1>
-        <p class="text-muted mt-2 mb-0">Kumpulan resep hidangan lezat dan bernutrisi, dilengkapi estimasi kalori serta waktu memasak untuk mendukung gaya hidup sehat Anda.</p>
+        <p class="text-muted mt-2 mb-0">Kumpulan resep hidangan lezat dan bernutrisi, dilengkapi estimasi kalori serta
+            waktu memasak untuk mendukung gaya hidup sehat Anda</p>
     </div>
 
     <!-- Filter -->
@@ -15,7 +16,7 @@
                 <div class="input-group">
                     <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
                     <input type="search" class="form-control" id="q" name="q"
-                           placeholder="Judul, bahan, atau deskripsi…" value="<?= e($q) ?>">
+                        placeholder="Judul, bahan, atau deskripsi…" value="<?= e($q) ?>">
                 </div>
             </div>
             <div class="col-md-4">
@@ -46,24 +47,26 @@
             </div>
         <?php endif; ?>
 
-                <?php foreach ($resep as $r): ?>
+        <?php foreach ($resep as $r): ?>
             <div class="col-md-6 col-xl-3">
                 <div class="card-soft h-100 d-flex flex-column">
                     <!-- Wadah Foto & Badge Kalori Melayang -->
                     <div class="position-relative">
                         <div class="ratio ratio-4x3">
-                            <img src="<?= img_url($r['foto_resep'], 'resep') ?>"
-                                 alt="<?= e($r['judul_resep']) ?>" class="img-cover" loading="lazy">
+                            <img src="<?= img_url($r['foto_resep'], 'resep') ?>" alt="<?= e($r['judul_resep']) ?>"
+                                class="img-cover" loading="lazy">
                         </div>
                         <!-- Badge kalori kecil melayang di pojok kiri atas -->
-                        <span class="badge text-bg-success position-absolute top-0 start-0 m-2 shadow-sm" style="z-index: 2;">
+                        <span class="badge text-bg-success position-absolute top-0 start-0 m-2 shadow-sm"
+                            style="z-index: 2;">
                             <i class="bi bi-fire me-1"></i><?= (int) $r['total_kalori'] ?> kkal
                         </span>
                     </div>
 
                     <div class="card-body d-flex flex-column flex-grow-1">
                         <div class="mb-2 d-flex flex-wrap gap-1">
-                            <span class="tag orange"><i class="bi bi-clock me-1"></i><?= (int) $r['waktu_masak'] ?> menit</span>
+                            <span class="tag orange"><i class="bi bi-clock me-1"></i><?= (int) $r['waktu_masak'] ?>
+                                menit</span>
                             <?php if (!empty($r['penulis'])): ?>
                                 <span class="tag gray"><i class="bi bi-person me-1"></i><?= e($r['penulis']) ?></span>
                             <?php endif; ?>
@@ -71,7 +74,7 @@
                         <h5 class="card-title"><?= e($r['judul_resep']) ?></h5>
                         <p class="text-muted small flex-grow-1"><?= e(excerpt($r['deskripsi'], 95)) ?></p>
                         <a href="<?= BASE_URL ?>/resep/<?= (int) $r['id_resep'] ?>"
-                           class="btn btn-sm btn-green align-self-start mt-auto">
+                            class="btn btn-sm btn-green align-self-start mt-auto">
                             Lihat Detail <i class="bi bi-arrow-right ms-1"></i>
                         </a>
                     </div>

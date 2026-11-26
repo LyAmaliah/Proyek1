@@ -302,7 +302,7 @@ CREATE TABLE `tempat_sehat` (
 
 LOCK TABLES `tempat_sehat` WRITE;
 /*!40000 ALTER TABLE `tempat_sehat` DISABLE KEYS */;
-INSERT INTO `tempat_sehat` VALUES (1,4,'RealJuice Healthy Caf+?','Jl. Gatot Subroto No.1D, Karanganyar, Kec.Indramayu, Kab.Indramayu, Jawa Barat 45213','Kafe sehat yang menyajikan aneka jus segar tanpa gula tambahan, salad bowl, serta menu rendah kalori. Semua bahan dipilih harian dari petani lokal.','0821-5530-5503','20261019_120128_a679a837.webp','20261019_120128_3864ee3b.webp','https://maps.app.goo.gl/ycBEsmevtZ2R2huS6','','',''),(2,4,'Salad Bar Segar Hijau','Jl. Gajah Mada No. 12, Padang, Sumatera Barat','Kedai salad dengan konsep build-your-own bowl. Tersedia pilihan protein nabati dan hewani dengan informasi gizi pada setiap menunya.','0813-9876-5432',NULL,NULL,'https://maps.google.com/?q=Salad+Bar+Segar+Hijau+Padang',NULL,NULL,NULL);
+INSERT INTO `tempat_sehat` VALUES (1,4,'RealJuice Healthy Cafe','Jl. Gatot Subroto No.1D, Karanganyar, Kec.Indramayu, Kab.Indramayu, Jawa Barat 45213','Kafe sehat yang menyajikan aneka jus segar tanpa gula tambahan, salad bowl, serta menu rendah kalori. Semua bahan dipilih harian dari petani lokal.','0821-5530-5503','20261019_120128_a679a837.webp','20261019_120128_3864ee3b.webp','https://maps.app.goo.gl/ycBEsmevtZ2R2huS6','','',''),(2,4,'Salad Bar Segar Hijau','Jl. Gajah Mada No. 12, Padang, Sumatera Barat','Kedai salad dengan konsep build-your-own bowl. Tersedia pilihan protein nabati dan hewani dengan informasi gizi pada setiap menunya.','0813-9876-5432',NULL,NULL,'https://maps.google.com/?q=Salad+Bar+Segar+Hijau+Padang',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `tempat_sehat` ENABLE KEYS */;
 UNLOCK TABLES;
 

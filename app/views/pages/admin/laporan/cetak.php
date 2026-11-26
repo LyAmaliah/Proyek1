@@ -6,12 +6,14 @@
  */
 ?>
 <div class="cetak-toolbar sticky-top no-print">
-    <div class="container d-flex justify-content-between align-items-center py-2">
-        <span class="small text-muted">
-            <i class="bi bi-info-circle me-1"></i>Gunakan <b>Ctrl + P</b> → <b>Save as PDF</b> untuk ekspor PDF
-        </span>
+<div class="container d-flex justify-content-between align-items-center py-2">
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+            <span class="small text-muted">
+                <i class="bi bi-info-circle me-1"></i>Gunakan <b>Ctrl + P</b> &rarr; <b>Save as PDF</b> untuk ekspor PDF
+            </span>
+        </div>
         <div class="d-flex gap-2">
-            <button type="button" class="btn btn-green btn-sm fw-semibold" data-print>
+            <button type="button" class="btn btn-green btn-sm fw-semibold data-print">
                 <i class="bi bi-printer me-1"></i>Cetak / Simpan PDF
             </button>
             <a href="<?= BASE_URL ?>/admin" class="btn btn-outline-secondary btn-sm">
@@ -20,19 +22,21 @@
         </div>
     </div>
 </div>
+</div>
 
 <div class="cetak-sheet">
     <!-- Kop laporan -->
     <div class="cetak-header d-flex justify-content-between align-items-start flex-wrap gap-2">
         <div>
-            <div class="d-flex align-items-center gap-2 mb-1">
-                <span class="brand-icon"><i class="bi bi-heart-pulse-fill"></i></span>
-                <div>
-                    <div class="fw-bold fs-5" style="color:var(--hijau-dark);">HealthyHabit</div>
-                    <small class="text-muted"><?= e(APP_TAGLINE) ?></small>
-                </div>
-            </div>
+<div class="d-flex align-items-center gap-2 mb-1">
+    <img src="<?= BASE_URL ?>/uploads/logo/logo_healthyhabit.png" alt="Logo HealthyHabit" width="40" height="40" class="d-inline-block align-text-top" style="object-fit: contain;">
+    <div>
+        <div class="fw-bold" style="font-size: 1.35rem; letter-spacing: -0.3px; line-height: 1.1;">
+            <span style="color: black; -webkit-text-stroke: 0.4px #144523; text-shadow: 0 0 1px rgba(20, 69, 35, 0.55);">Healthy</span><span style="color: #ff6a00;">Habit</span>
         </div>
+        <small class="text-muted"><?= e(APP_TAGLINE) ?></small>
+    </div>
+</div>        </div>
         <div class="text-end small">
             <div class="fw-semibold">LAPORAN STATISTIK SISTEM</div>
             <div class="text-muted">Tanggal cetak: <?= tanggal_indo($tanggal, true) ?></div>
