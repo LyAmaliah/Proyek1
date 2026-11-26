@@ -6,7 +6,7 @@
 /* ---------------- URL & Path ---------------- */
 
 // Deteksi base URL otomatis (mendukung deployment di root atau subfolder htdocs)
-$scriptDir   = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/'));
+$scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/'));
 define('BASE_URL', rtrim($scriptDir, '/')); // '' jika di root, '/healthyhabit' jika di subfolder
 
 define('ROOT_PATH', dirname(__DIR__, 2));   // root proyek
@@ -25,7 +25,7 @@ define('APP_VERSION', '1.0.0');
 
 define('DB_HOST', '127.0.0.1');
 define('DB_PORT', '3306');
-define('DB_NAME', 'healthyhabit1');
+define('DB_NAME', 'healthyhabit2');
 define('DB_USER', 'root');
 define('DB_PASS', '');           // XAMPP default: password kosong
 define('DB_CHARSET', 'utf8mb4');
