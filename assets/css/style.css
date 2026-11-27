@@ -1773,6 +1773,7 @@ a:hover > .brand-icon,
 }
 
 @media (prefers-reduced-motion: reduce) {
+<<<<<<< Updated upstream
   *,
   *::before,
   *::after {
@@ -1781,3 +1782,7 @@ a:hover > .brand-icon,
     scroll-behavior: auto !important;
   }
 }
+=======
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}v
+>>>>>>> Stashed changes
