@@ -6,18 +6,21 @@ class ResepController extends Controller
 {
     public function index(): void
     {
-        $q         = $this->input('q');
+        $q = $this->input('q');
         $maksWaktu = (int) $this->input('waktu');
+        $kaloriInput = $this->input('kalori');
+        $urutanKalori = in_array($kaloriInput, ['terendah', 'tertinggi'], true) ? $kaloriInput : '';
 
         $this->view('resep/index', [
-            'pageTitle'  => 'Resep Sehat',
-            'activeNav'  => 'resep',
-            'resep'      => Resep::cari($q ?: null, 'dipublikasikan', $maksWaktu ?: null),
-            'q'          => $q,
-            'maksWaktu'  => $maksWaktu,
+            'pageTitle' => 'Resep Sehat',
+            'activeNav' => 'resep',
+            'resep' => Resep::cari($q ?: null, 'dipublikasikan', $maksWaktu ?: null, $urutanKalori ?: null),
+            'q' => $q,
+            'maksWaktu' => $maksWaktu,
+            'urutanKalori' => $urutanKalori,
         ]);
     }
-
+    
     public function detail(string $id): void
     {
         $resep = Resep::detail((int) $id);
@@ -29,7 +32,7 @@ class ResepController extends Controller
         $this->view('resep/detail', [
             'pageTitle' => $resep['judul_resep'],
             'activeNav' => 'resep',
-            'resep'     => $resep,
+            'resep' => $resep,
         ]);
     }
 }

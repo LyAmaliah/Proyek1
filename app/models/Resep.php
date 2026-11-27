@@ -8,10 +8,11 @@ class Resep extends Model
     /**
      * Pencarian & filter resep (FR-12).
      *
-     * @param string|null $status    'dipublikasikan' | 'draft' | null (semua)
-     * @param int|null    $maksWaktu batas waktu masak (menit)
+     * @param string|null $status       'dipublikasikan' | 'draft' | null (semua)
+     * @param int|null    $maksWaktu    batas waktu masak (menit)
+     * @param string|null $urutanKalori 'terendah' | 'tertinggi' | null
      */
-    public static function cari(?string $q = null, ?string $status = 'dipublikasikan', ?int $maksWaktu = null): array
+    public static function cari(?string $q = null, ?string $status = 'dipublikasikan', ?int $maksWaktu = null, ?string $urutanKalori = null): array
     {
         $sql = 'SELECT r.*, ad.nama_lengkap AS penulis
                 FROM resep r
@@ -36,7 +37,14 @@ class Resep extends Model
         if ($where) {
             $sql .= ' WHERE ' . implode(' AND ', $where);
         }
-        $sql .= ' ORDER BY r.id_resep ASC';
+
+        if ($urutanKalori === 'terendah') {
+            $sql .= ' ORDER BY r.total_kalori ASC, r.id_resep ASC';
+        } elseif ($urutanKalori === 'tertinggi') {
+            $sql .= ' ORDER BY r.total_kalori DESC, r.id_resep ASC';
+        } else {
+            $sql .= ' ORDER BY r.id_resep ASC';
+        }
 
         $st = static::db()->prepare($sql);
         $st->execute($params);

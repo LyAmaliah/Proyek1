@@ -1,8 +1,8 @@
 <?php
 /** @var array $resep */
-$bahan  = preg_split('/\r\n|\r|\n/', trim((string) $resep['bahan_bahan']));
+$bahan = preg_split('/\r\n|\r|\n/', trim((string) $resep['bahan_bahan']));
 $langkah = preg_split('/\r\n|\r|\n/', trim((string) $resep['langkah_pembuatan']));
-$bahan  = array_values(array_filter(array_map('trim', $bahan), fn($b) => $b !== ''));
+$bahan = array_values(array_filter(array_map('trim', $bahan), fn($b) => $b !== ''));
 $langkah = array_values(array_filter(array_map('trim', $langkah), fn($b) => $b !== ''));
 ?>
 <div class="container mt-4 mb-5">
@@ -11,15 +11,15 @@ $langkah = array_values(array_filter(array_map('trim', $langkah), fn($b) => $b !
         <div class="row g-0">
             <div class="col-lg-5">
                 <div class="ratio ratio-4x3 h-100">
-                    <img src="<?= img_url($resep['foto_resep'], 'resep') ?>"
-                         alt="<?= e($resep['judul_resep']) ?>" class="img-cover">
+                    <img src="<?= img_url($resep['foto_resep'], 'resep') ?>" alt="<?= e($resep['judul_resep']) ?>"
+                        class="img-cover">
                 </div>
             </div>
             <div class="col-lg-7 p-4">
                 <div class="d-flex flex-wrap gap-2 mb-2">
-                    <span class="tag orange"><i class="bi bi-fire me-1"></i><?= (int) $resep['total_kalori'] ?> kkal / porsi</span>
+                    <span class="tag orange"><i class="bi bi-fire me-1"></i><?= (int) $resep['total_kalori'] ?> kkal /
+                        porsi</span>
                     <span class="tag"><i class="bi bi-clock me-1"></i><?= (int) $resep['waktu_masak'] ?> menit</span>
-                    <span class="tag gray"><i class="bi bi-person me-1"></i><?= e($resep['penulis'] ?? 'Redaksi') ?></span>
                 </div>
                 <h1 class="h2 mb-3"><?= e($resep['judul_resep']) ?></h1>
                 <p class="text-muted"><?= e($resep['deskripsi']) ?></p>
