@@ -63,4 +63,14 @@ class KalkulatorBmi extends Model
             'estimasi_kalori' => $kalori,
         ];
     }
+
+        /** Hapus 1 riwayat BMI, hanya jika milik pengguna tersebut. */
+    public static function hapusMilik(int $idBmi, int $idPengguna): bool
+    {
+        $st = static::db()->prepare(
+            'DELETE FROM kalkulator_bmi WHERE id_bmi = ? AND id_pengguna = ?'
+        );
+        $st->execute([$idBmi, $idPengguna]);
+        return $st->rowCount() > 0;
+    }
 }
