@@ -55,4 +55,21 @@ class Ulasan extends Model
         $st->execute([$idPengguna, $idTempat]);
         return (int) $st->fetchColumn() > 0;
     }
+    public static function semuaUntukAdmin(): array
+{
+    $st = static::db()->query(
+        'SELECT u.*, p.nama_lengkap, p.username, t.nama_tempat
+         FROM ulasan_rating u
+         JOIN users p ON p.id_pengguna = u.id_pengguna
+         JOIN tempat_sehat t ON t.id_tempat = u.id_tempat
+         ORDER BY u.tanggal_ulasan DESC, u.id_usulan_rating DESC'
+    );
+    return $st->fetchAll();
+}
+
+public static function hapusById(int $id): bool
+{
+    $st = static::db()->prepare('DELETE FROM ulasan_rating WHERE id_usulan_rating = ?');
+    return $st->execute([$id]);
+}
 }
