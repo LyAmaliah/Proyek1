@@ -13,6 +13,7 @@ $menu = [
     'tempat'    => ['label' => 'Tempat & Menu', 'icon' => 'bi-shop',                'url' => '/admin/tempat'],
     'tips'      => ['label' => 'Tips Harian',   'icon' => 'bi-lightbulb',           'url' => '/admin/tips'],
     'pengguna'  => ['label' => 'Pengguna',      'icon' => 'bi-people',              'url' => '/admin/pengguna'],
+    'ulasan' => ['label' => 'Ulasan', 'icon' => 'bi-chat-left-text', 'url' => '/admin/ulasan'],
 ];
 ?>
 <!doctype html>
