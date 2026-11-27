@@ -97,6 +97,22 @@ class UserController extends Controller
         $this->redirect(BASE_URL . '/profil');
     }
 
+    /** Hapus 1 riwayat BMI milik pengguna yang sedang login. */
+    public function hapusRiwayat(string $id): void
+    {
+        Auth::requireUser();
+        verify_csrf();
+
+        $terhapus = KalkulatorBmi::hapusMilik((int) $id, (int) Auth::userId());
+
+        if ($terhapus) {
+            set_flash('success', 'Riwayat BMI berhasil dihapus.');
+        } else {
+            set_flash('danger', 'Riwayat BMI tidak ditemukan.');
+        }
+        $this->redirect(BASE_URL . '/profil');
+    }
+
     /** Halaman kalkulator BMI (wajib login; hasil tersimpan ke riwayat). */
     public function bmi(): void
     {
