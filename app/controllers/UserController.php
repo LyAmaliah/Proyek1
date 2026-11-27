@@ -97,9 +97,11 @@ class UserController extends Controller
         $this->redirect(BASE_URL . '/profil');
     }
 
-    /** Halaman kalkulator BMI (dapat diakses tamu; tersimpan jika login). */
+    /** Halaman kalkulator BMI (wajib login; hasil tersimpan ke riwayat). */
     public function bmi(): void
     {
+        Auth::requireUser();
+
         $pengguna = Auth::check() ? User::find(Auth::userId()) : null;
 
         $this->view('user/bmi', [
@@ -110,9 +112,11 @@ class UserController extends Controller
         ]);
     }
 
-    /** Proses perhitungan BMI via form (simpan riwayat jika sudah login). */
+    /** Proses perhitungan BMI via form (wajib login; riwayat disimpan). */
     public function hitungBmi(): void
     {
+        Auth::requireUser();
+
         $berat  = $this->inputFloat('berat_badan');
         $tinggi = $this->inputFloat('tinggi_badan');
         $umur   = (int) $this->inputFloat('umur');

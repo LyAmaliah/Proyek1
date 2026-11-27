@@ -64,9 +64,15 @@
             <p class="mb-0 opacity-75">Tahu berat badan idealmu? Hitung BMI dan kebutuhan kalori harian secara otomatis.
             </p>
         </div>
-        <a href="<?= BASE_URL ?>/bmi" class="btn btn-orange fw-semibold px-4 flex-shrink-0">
-            Hitung BMI Saya <i class="bi bi-arrow-right ms-1"></i>
-        </a>
+        <?php if (Auth::check()): ?>
+            <a href="<?= BASE_URL ?>/bmi" class="btn btn-orange fw-semibold px-4 flex-shrink-0">
+                Hitung BMI Saya <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        <?php else: ?>
+            <a href="<?= BASE_URL ?>/auth/login" class="btn btn-orange fw-semibold px-4 flex-shrink-0">
+                Login untuk Hitung BMI <i class="bi bi-box-arrow-in-right ms-1"></i>
+            </a>
+        <?php endif; ?>
     </div>
 </section>
 
