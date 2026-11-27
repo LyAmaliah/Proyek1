@@ -23,6 +23,23 @@
                 // Hapus tag <script> saja agar aman, lalu biarkan tag format teks dirender
                 $isi = preg_replace('/<script\b[^>]*>.*?<\/script>/is', '', $isi);
                 $isi = strip_tags($isi, '<p><br><h2><h3><strong><b><em><i><u><ul><ol><li><a>');
+
+                // Jika isi berupa teks polos (tanpa tag paragraf/daftar), jadikan paragraf
+                if (trim($isi) !== '' && !preg_match('/<(p|br|h2|h3|ul|ol|li)\b/i', $isi)) {
+                    $bagian = preg_split('/\R+/', trim($isi), -1, PREG_SPLIT_NO_EMPTY);
+                    if (count($bagian) === 1) {
+                        // Tidak ada baris baru sama sekali: bagi per 3 kalimat
+                        $kalimat = preg_split('/(?<=[.?!])\s+/', $bagian[0]);
+                        $bagian  = array_map(fn($g) => implode(' ', $g), array_chunk($kalimat, 3));
+                    }
+                    $isi = '';
+                    foreach ($bagian as $b) {
+                        $b = trim($b);
+                        // Baris berawalan nomor/butir (1. 2. 3) atau - • *) dirapatkan jaraknya
+                        $kelas = preg_match('/^(\d+[.)]|[-•*])\s/u', $b) ? ' class="item-daftar"' : '';
+                        $isi .= "<p$kelas>$b</p>";
+                    }
+                }
                 ?>
                 <div class="article-body artikel-content">
                     <?= $isi ?>
