@@ -11,21 +11,31 @@
     <!-- Filter -->
     <div class="panel-white mb-4">
         <form action="<?= BASE_URL ?>/resep" method="get" class="row g-2 align-items-end">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="q" class="form-label small fw-semibold">Cari Resep</label>
                 <div class="input-group">
                     <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
                     <input type="search" class="form-control" id="q" name="q"
-                        placeholder="Judul, bahan, atau deskripsi…" value="<?= e($q) ?>">
+                        placeholder="Judul, bahan, atau deskripsi..." value="<?= e($q) ?>">
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="waktu" class="form-label small fw-semibold">Waktu Masak Maksimal</label>
                 <select class="form-select" id="waktu" name="waktu">
                     <option value="">— Semua —</option>
                     <option value="15" <?= $maksWaktu === 15 ? 'selected' : '' ?>>≤ 15 menit</option>
                     <option value="30" <?= $maksWaktu === 30 ? 'selected' : '' ?>>≤ 30 menit</option>
                     <option value="60" <?= $maksWaktu === 60 ? 'selected' : '' ?>>≤ 60 menit</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="kalori" class="form-label small fw-semibold">Kalori</label>
+                <select class="form-select" id="kalori" name="kalori">
+                    <option value="">— Semua —</option>
+                    <option value="terendah" <?= ($urutanKalori ?? '') === 'terendah' ? 'selected' : '' ?>>Terendah
+                    </option>
+                    <option value="tertinggi" <?= ($urutanKalori ?? '') === 'tertinggi' ? 'selected' : '' ?>>Tertinggi
+                    </option>
                 </select>
             </div>
             <div class="col-md-2 d-grid">
@@ -35,7 +45,7 @@
             </div>
         </form>
     </div>
-
+    
     <!-- Grid Resep -->
     <div class="row g-4">
         <?php if (!$resep): ?>
@@ -67,9 +77,6 @@
                         <div class="mb-2 d-flex flex-wrap gap-1">
                             <span class="tag orange"><i class="bi bi-clock me-1"></i><?= (int) $r['waktu_masak'] ?>
                                 menit</span>
-                            <?php if (!empty($r['penulis'])): ?>
-                                <span class="tag gray"><i class="bi bi-person me-1"></i><?= e($r['penulis']) ?></span>
-                            <?php endif; ?>
                         </div>
                         <h5 class="card-title"><?= e($r['judul_resep']) ?></h5>
                         <p class="text-muted small flex-grow-1"><?= e(excerpt($r['deskripsi'], 95)) ?></p>

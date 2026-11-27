@@ -63,12 +63,10 @@
                         </div>
                         <h5 class="card-title"><?= e($a['judul_artikel']) ?></h5>
                         <p class="text-muted small flex-grow-1"><?= e(excerpt($a['isi_artikel'], 130)) ?></p>
-                        <div class="d-flex justify-content-between align-items-center mt-auto pt-2">
-                            <small class="text-muted"><i class="bi bi-person-circle me-1"></i><?= e($a['penulis'] ?? 'Admin') ?></small>
-                            <a href="<?= BASE_URL ?>/artikel/<?= (int) $a['id_artikel'] ?>"
-                               class="btn btn-sm btn-green">Baca <i class="bi bi-arrow-right ms-1"></i></a>
-                        </div>
-                    </div>
+<div class="d-flex justify-content-end align-items-center mt-auto pt-2">
+    <a href="<?= BASE_URL ?>/artikel/<?= (int) $a['id_artikel'] ?>"
+    class="btn btn-sm btn-green">Baca <i class="bi bi-arrow-right ms-1"></i></a>
+</div>                    </div>
                 </div>
             </div>
         <?php endforeach; ?>
