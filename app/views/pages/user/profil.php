@@ -157,13 +157,18 @@ $jk = strtoupper($pengguna['jenis_kelamin']);
             </div>
 
             <!-- Riwayat -->
-            <?php if (count($riwayat) > 1): ?>
+            <?php if ($riwayat): ?>
                 <div class="panel-white mt-4">
                     <h6 class="mb-3"><i class="bi bi-clock-history me-2 text-success"></i>Riwayat BMI</h6>
                     <div class="table-responsive">
                         <table class="table table-custom align-middle mb-0 small">
                             <thead>
-                                <tr><th>BMI</th><th>Kategori</th><th class="text-end">Kalori</th></tr>
+                                <tr>
+                                    <th>BMI</th>
+                                    <th>Kategori</th>
+                                    <th class="text-end">Kalori</th>
+                                    <th class="text-end">Aksi</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($riwayat as $r): ?>
@@ -171,6 +176,17 @@ $jk = strtoupper($pengguna['jenis_kelamin']);
                                         <td class="fw-semibold"><?= number_format((float) $r['nilai_bmi'], 1) ?></td>
                                         <td><span class="tag"><?= e($r['kategori_bmi']) ?></span></td>
                                         <td class="text-end"><?= number_format((int) $r['estimasi_kalori']) ?></td>
+                                        <td class="text-end">
+                                            <form action="<?= BASE_URL ?>/profil/riwayat/<?= (int) $r['id_bmi'] ?>/delete"
+                                                  method="post" class="d-inline"
+                                                  onsubmit="return confirm('Hapus riwayat BMI ini? Tindakan tidak bisa dibatalkan.')">
+                                                <?= csrf_field() ?>
+                                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                        title="Hapus riwayat ini" aria-label="Hapus riwayat ini">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
