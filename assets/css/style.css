@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Plus+Jakarta+Sans:wght@400..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Plus+Jakarta+Sans:wght@400..800&family=Poppins:wght@600;700;800&display=swap");
 
 /* ============================================================
  * HealthyHabit — Meal Prep Editorial + Original Fonts & Animations
  * Palet : Krem Hangat #F7F3E3 · Hijau Hutan #145A32 · Hijau Grid #7CC464
  *         Oranye Terang #FF6A00 · Hijau Limau #9BE12B · Putih #FFFFFF
- * Font  : Plus Jakarta Sans (heading) · DM Sans (body) · Bootstrap 5
+ * Font  : Poppins (judul) · Plus Jakarta Sans (UI) · DM Sans (body) · Bootstrap 5
  * ============================================================ */
 
 :root {
@@ -32,6 +32,8 @@
   /* Font lama dipertahankan */
   --font-heading: "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
   --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Judul editorial (h1-h3, judul kartu) */
+  --font-display: "Poppins", "Plus Jakarta Sans", system-ui, sans-serif;
 
   --shadow: 0 6px 0 rgba(19, 34, 25, 0.12);
   --shadow-hover: 0 10px 0 rgba(19, 34, 25, 0.18);
@@ -40,31 +42,6 @@
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-
-    .artikel-content {
-        line-height: 1.8;
-        font-size: 1.05rem;
-    }
-    .artikel-content p {
-        margin-bottom: 1.1rem;
-    }
-    /* Daftar bernomor: jarak rapat antar butir, jarak normal setelah butir terakhir */
-    .artikel-content p.item-daftar {
-        margin-bottom: .3rem;
-        padding-left: 1rem;
-    }
-    .artikel-content p.item-daftar + p:not(.item-daftar) {
-        margin-top: 1.1rem;
-    }
-    .artikel-content ol,
-    .artikel-content ul {
-        margin-bottom: 1.1rem;
-        padding-left: 1.5rem;
-    }
-    .artikel-content h2,
-    .artikel-content h3 {
-        margin: 1.5rem 0 .75rem;
-    }
 
 * {
   font-family: var(--font-body);
@@ -79,7 +56,7 @@ body {
   position: relative;
   color: var(--teks);
   font-weight: 400;
-  font-size: 0.97rem;
+  font-size: 1rem;
   line-height: 1.65;
   min-height: 100vh;
   background-color: var(--hijau-grid);
@@ -123,6 +100,20 @@ h6 {
   letter-spacing: -0.005em;
   line-height: 1.35;
   font-weight: 600;
+}
+
+/* Judul: Poppins untuk h1-h3, section-title & judul kartu */
+h1,
+h2,
+h3,
+.h1,
+.h2,
+.h3,
+.section-title,
+.card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 a {
@@ -865,6 +856,24 @@ a:hover > .brand-icon,
   margin-top: auto !important;
 }
 
+/* Keterbacaan kartu: judul maks 3 baris, ringkasan lebih besar & kontras */
+.card-soft .card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-soft .card-body p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--teks-lembut) !important;
+}
+
 .card-soft:hover {
   transform: translateY(-4px);
   box-shadow: 6px 8px 0 rgba(19, 34, 25, 0.22);
@@ -910,7 +919,7 @@ a:hover > .brand-icon,
 .tag {
   display: inline-block;
   font-family: var(--font-heading);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   padding: 0.28rem 0.72rem;
@@ -1097,17 +1106,26 @@ a:hover > .brand-icon,
 }
 
 /* ============ Artikel & Resep ============ */
-/* ============ Artikel & Resep ============ */
 .article-body,
 .artikel-content {
   line-height: 1.85;
   color: #111111;
-  font-size: 1rem;
+  font-size: 1.08rem;
 }
 
 .article-body p,
 .artikel-content p {
   margin-bottom: 1.05rem;
+}
+
+/* Daftar bernomor (1. 2. 3.) / butir (- • *): rapat antar butir */
+.artikel-content p.item-daftar {
+  margin-bottom: 0.3rem;
+  padding-left: 1rem;
+}
+
+.artikel-content p.item-daftar + p:not(.item-daftar) {
+  margin-top: 1.1rem;
 }
 
 .article-body h2,
@@ -1413,6 +1431,7 @@ a:hover > .brand-icon,
 
 /* ============ ADMIN ============ */
 .admin-body {
+  --font-display: var(--font-heading); /* admin tetap sans-serif */
   min-height: 100vh;
   background-color: var(--krem-2);
   background-image: none;
@@ -1798,7 +1817,6 @@ a:hover > .brand-icon,
 }
 
 @media (prefers-reduced-motion: reduce) {
-<<<<<<< Updated upstream
   *,
   *::before,
   *::after {
@@ -1807,7 +1825,3 @@ a:hover > .brand-icon,
     scroll-behavior: auto !important;
   }
 }
-=======
-    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-}v
->>>>>>> Stashed changes
