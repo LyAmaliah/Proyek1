@@ -1825,3 +1825,48 @@ a:hover > .brand-icon,
     scroll-behavior: auto !important;
   }
 }
+
+.article-body ul,
+.artikel-content ul {
+  list-style-type: disc !important;
+  list-style-position: outside !important;
+  padding-left: 1.5rem !important;
+  margin-bottom: 1rem;
+  counter-reset: none !important;
+}
+
+.article-body ul li,
+.artikel-content ul li {
+  list-style-type: disc !important;
+  display: list-item !important;
+  counter-increment: none !important;
+}
+
+.article-body ol,
+.artikel-content ol {
+  list-style-type: decimal !important;
+  list-style-position: outside !important;
+  padding-left: 1.5rem !important;
+  margin-bottom: 1rem;
+}
+
+/* Bullet list yang dihasilkan Quill (<ol> dengan li[data-list="bullet"]) */
+.article-body ol li[data-list="bullet"],
+.artikel-content ol li[data-list="bullet"] {
+  list-style-type: disc !important;
+  list-style-position: outside !important;
+}
+
+/* Numbered list asli dari Quill (<ol> dengan li[data-list="ordered"] atau tanpa data-list) */
+.article-body ol li[data-list="ordered"],
+.artikel-content ol li[data-list="ordered"] {
+  list-style-type: decimal !important;
+  list-style-position: outside !important;
+}
+
+/* Jika ada <ul> biasa juga tetap bullet */
+.article-body ul li,
+.artikel-content ul li {
+  list-style-type: disc !important;
+  list-style-position: outside !important;
+}
