@@ -41,6 +41,7 @@ $router->get('/profil', ['UserController', 'profil']);
 $router->post('/profil', ['UserController', 'updateProfil']);
 $router->get('/bmi', ['UserController', 'bmi']);
 $router->post('/bmi', ['UserController', 'hitungBmi']);
+$router->post('/profil/riwayat/{id:\d+}/delete', ['UserController', 'hapusRiwayat']);
 
 /* ==================== ADMIN ==================== */
 
