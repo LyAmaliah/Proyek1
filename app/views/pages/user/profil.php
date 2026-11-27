@@ -181,3 +181,55 @@ $jk = strtoupper($pengguna['jenis_kelamin']);
         </div>
     </div>
 </div>
+
+<!-- ============ POPUP KONFIRMASI GANTI PASSWORD ============ -->
+<div class="modal fade" id="modalKonfirmasiPassword" tabindex="-1" aria-labelledby="modalKonfirmasiPasswordLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold" id="modalKonfirmasiPasswordLabel">
+                    <i class="bi bi-shield-lock text-success me-2"></i>Ganti Password?
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-2">Password akunmu akan diganti dengan password baru yang kamu masukkan.</p>
+                <p class="small text-muted mb-0">Setelah ini, gunakan password baru saat login berikutnya.</p>
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-green fw-semibold" id="btnLanjutPassword">
+                    Ya, Ganti Password
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const kolomPassword = document.getElementById('password');
+    const modalEl = document.getElementById('modalKonfirmasiPassword');
+    if (!kolomPassword || !modalEl || !(window.bootstrap && bootstrap.Modal)) return;
+
+    const form = kolomPassword.closest('form');
+    if (!form) return;
+
+    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    let sudahKonfirmasi = false;
+
+    form.addEventListener('submit', function (e) {
+        // Popup hanya muncul jika kolom password baru diisi
+        if (kolomPassword.value.trim() !== '' && !sudahKonfirmasi) {
+            e.preventDefault();
+            modal.show();
+        }
+    });
+
+    document.getElementById('btnLanjutPassword').addEventListener('click', function () {
+        sudahKonfirmasi = true;
+        modal.hide();
+        form.requestSubmit();
+    });
+});
+</script>

@@ -150,6 +150,56 @@ $user = Auth::user();
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
+        </div>
+
+        <!-- ===== RATING & DAFTAR ULASAN ===== -->
+        <div class="col-lg-5">
+            <!-- Ringkasan rating -->
+            <div class="panel-white mb-4 text-center">
+                <div class="display-3 fw-bold text-success" style="font-size:2.6rem;">
+                    <?= $rataRata !== null ? e($rataRata) : '—' ?>
+                </div>
+                <div class="stars mb-1" style="font-size:1.3rem;"><?= bintang_tampil($rataRata ?? 0) ?></div>
+                <small class="text-muted d-block mb-3">Berdasarkan <?= $totalUlasan ?> ulasan</small>
+
+                <?php for ($i = 5; $i >= 1; $i--): ?>
+                    <?php $pct = $totalUlasan > 0 ? round($sebaran[$i] / $totalUlasan * 100) : 0; ?>
+                    <div class="d-flex align-items-center gap-2 mb-1 small">
+                        <span style="width:38px;"><?= $i ?> <i class="bi bi-star-fill text-warning"></i></span>
+                        <div class="progress flex-grow-1" style="height:8px;">
+                            <div class="progress-bar bg-success" style="width:<?= $pct ?>%"></div>
+                        </div>
+                        <span class="text-muted" style="width:32px;text-align:right;"><?= $sebaran[$i] ?></span>
+                    </div>
+                <?php endfor; ?>
+            </div>
+
+            <!-- Daftar ulasan -->
+            <div class="panel-white mb-4">
+                <h5 class="mb-3"><i class="bi bi-chat-left-text me-2 text-success"></i>Ulasan Pengguna</h5>
+
+                <?php if (!$ulasan): ?>
+                    <p class="text-muted small mb-0">Belum ada ulasan. Jadilah yang pertama mengulas!</p>
+                <?php endif; ?>
+
+                <?php foreach ($ulasan as $u): ?>
+                    <div class="border-bottom pb-3 mb-3 <?= $u === end($ulasan) ? 'border-0 mb-0 pb-0' : '' ?>">
+                        <div class="d-flex justify-content-between align-items-start gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="stat-icon" style="width:38px;height:38px;flex:0 0 38px;font-size:1rem;">
+                                    <i class="bi bi-person"></i>
+                                </span>
+                                <div class="lh-sm">
+                                    <small class="fw-semibold d-block"><?= e($u['nama_lengkap']) ?></small>
+                                    <small class="text-muted"><?= tanggal_indo($u['tanggal_ulasan']) ?></small>
+                                </div>
+                            </div>
+                            <span class="stars small"><?= bintang_tampil($u['rating']) ?></span>
+                        </div>
+                        <p class="small mt-2 mb-0 text-muted"><?= nl2br(e($u['komentar'])) ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
 
             <!-- ===== FORM ULASAN (FR-13) ===== -->
             <div class="panel-white">
@@ -196,56 +246,6 @@ $user = Auth::user();
                         </button>
                     </form>
                 <?php endif; ?>
-            </div>
-        </div>
-
-        <!-- ===== RATING & DAFTAR ULASAN ===== -->
-        <div class="col-lg-5">
-            <!-- Ringkasan rating -->
-            <div class="panel-white mb-4 text-center">
-                <div class="display-3 fw-bold text-success" style="font-size:2.6rem;">
-                    <?= $rataRata !== null ? e($rataRata) : '—' ?>
-                </div>
-                <div class="stars mb-1" style="font-size:1.3rem;"><?= bintang_tampil($rataRata ?? 0) ?></div>
-                <small class="text-muted d-block mb-3">Berdasarkan <?= $totalUlasan ?> ulasan</small>
-
-                <?php for ($i = 5; $i >= 1; $i--): ?>
-                    <?php $pct = $totalUlasan > 0 ? round($sebaran[$i] / $totalUlasan * 100) : 0; ?>
-                    <div class="d-flex align-items-center gap-2 mb-1 small">
-                        <span style="width:38px;"><?= $i ?> <i class="bi bi-star-fill text-warning"></i></span>
-                        <div class="progress flex-grow-1" style="height:8px;">
-                            <div class="progress-bar bg-success" style="width:<?= $pct ?>%"></div>
-                        </div>
-                        <span class="text-muted" style="width:32px;text-align:right;"><?= $sebaran[$i] ?></span>
-                    </div>
-                <?php endfor; ?>
-            </div>
-
-            <!-- Daftar ulasan -->
-            <div class="panel-white">
-                <h5 class="mb-3"><i class="bi bi-chat-left-text me-2 text-success"></i>Ulasan Pengguna</h5>
-
-                <?php if (!$ulasan): ?>
-                    <p class="text-muted small mb-0">Belum ada ulasan. Jadilah yang pertama mengulas!</p>
-                <?php endif; ?>
-
-                <?php foreach ($ulasan as $u): ?>
-                    <div class="border-bottom pb-3 mb-3 <?= $u === end($ulasan) ? 'border-0 mb-0 pb-0' : '' ?>">
-                        <div class="d-flex justify-content-between align-items-start gap-2">
-                            <div class="d-flex align-items-center gap-2">
-                                <span class="stat-icon" style="width:38px;height:38px;flex:0 0 38px;font-size:1rem;">
-                                    <i class="bi bi-person"></i>
-                                </span>
-                                <div class="lh-sm">
-                                    <small class="fw-semibold d-block"><?= e($u['nama_lengkap']) ?></small>
-                                    <small class="text-muted"><?= tanggal_indo($u['tanggal_ulasan']) ?></small>
-                                </div>
-                            </div>
-                            <span class="stars small"><?= bintang_tampil($u['rating']) ?></span>
-                        </div>
-                        <p class="small mt-2 mb-0 text-muted"><?= nl2br(e($u['komentar'])) ?></p>
-                    </div>
-                <?php endforeach; ?>
             </div>
         </div>
     </div>

@@ -94,6 +94,10 @@ $router->get('/admin/pengguna/{id:\d+}/edit', ['AdminPenggunaController', 'edit'
 $router->post('/admin/pengguna/{id:\d+}/edit', ['AdminPenggunaController', 'update']);
 $router->post('/admin/pengguna/{id:\d+}/delete', ['AdminPenggunaController', 'destroy']);
 
+/* --- Kelola ulasan --- */
+$router->get('/admin/ulasan', ['AdminUlasanController', 'index']);
+$router->post('/admin/ulasan/{id:\d+}/delete', ['AdminUlasanController', 'destroy']);
+
 /* --- Cetak laporan (FR-07) --- */
 $router->get('/admin/cetak', ['AdminLaporanController', 'cetak']);
 
